@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  web:
+    image: malte311/book-library:latest
+    container_name: book-library
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - ./data/:/php-code/data/
+    restart: always
+    environment:
+      - SERVERURL=https://example.com/book-library
