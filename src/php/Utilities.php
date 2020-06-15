@@ -23,6 +23,15 @@ class Utilities {
 	public static function is_valid_id(string $id) : bool {
 		return strlen($id) <= 5 && preg_match('/^[0-9]+$/', $id) === 1;
 	}
+
+	/**
+	 * Checks whether a given user name is valid.
+	 * @param string $user The user name to verify.
+	 * @return bool True if the given user name is valid, else false.
+	 */
+	public static function is_valid_user_name(string $user) : bool {
+		return strlen($user) <= 50 && preg_match('/^[a-zA-Z0-9]+$/', $user) === 1;
+	}
 }
 
 ?>

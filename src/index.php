@@ -9,7 +9,7 @@ require_once(__DIR__ . '/php/autoload.php');
 
 $login = new Login();
 
-if ($login->isLoggedIn()) {
+if ($login->is_logged_in()) {
 	echo "Some fancy text.";
 } else {
 	echo "Nope!";
