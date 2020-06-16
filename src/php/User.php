@@ -11,7 +11,7 @@ class User {
 	 * @param string $id The id for which we want to find out the user name.
 	 * @return string The corresponding user name to that id.
 	 */
-	public static function get_id_by_name(string $id) : string {
+	public static function getIdByName(string $id) : string {
 		return '';
 	}
 
@@ -21,7 +21,7 @@ class User {
 	 * @param string $auth The authentication code to be validated.
 	 * @return bool True if the authentication code is correct, else false.
 	 */
-	public static function validate_auth_code(string $id, string $auth) : bool {
+	public static function validateAuthCode(string $id, string $auth) : bool {
 		return false;
 	}
 
@@ -31,7 +31,7 @@ class User {
 	 * @param string $pwd The password for the user.
 	 * @return bool True if the password is correct, else false.
 	 */
-	public static function validate_password(string $user, string $pwd) : bool {
+	public static function validatePassword(string $user, string $pwd) : bool {
 		return false;
 	}
 }

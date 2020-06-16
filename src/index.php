@@ -8,8 +8,11 @@ error_reporting(!empty($_ENV['PROD']) && $_ENV['PROD'] == 'prod' ? 0 : E_ALL);
 require_once(__DIR__ . '/php/autoload.php');
 
 $login = new Login();
+$template = new Template('home');
 
-if ($login->is_logged_in()) {
+$login->handleRequests();
+
+if ($login->isLoggedIn()) {
 	echo "Some fancy text.";
 } else {
 	echo "Nope!";

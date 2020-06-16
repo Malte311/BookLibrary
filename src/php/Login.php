@@ -9,21 +9,44 @@ class Login {
 	/**
 	 * Holds the time in seconds until a user is logged out (when being inactive).
 	 */
-	private int $logout_secs = 600;
+	private int $logout_secs = 1200;
 
+	/**
+	 * Starts a new session or continues the current session.
+	 */
 	public function __construct() {
 		session_start();
 	}
 
+	/**
+	 * Ends the current session.
+	 */
 	public function __destruct() {
 		session_write_close();
+	}
+
+	/**
+	 * Handles incoming GET and POST requests.
+	 */
+	public function handleRequests() : void {
+		$time_out = ($_SESSION['login_time'] + $this->logout_secs) <= time();
+		
+		if ($_SESSION['login'] !== true || isset($_GET['logout']) || $time_out) {
+			if (!empty($_POST['user']) && !empty($_POST['pwd'])) {
+				$this->loginPassword();
+			} elseif (isset($_GET['id']) && !empty($_GET['auth'])) {
+				$this->loginAuthCode();
+			} elseif (isset($_GET['logout'])) {
+				$this->logout();
+			}
+		}
 	}
 
 	/**
 	 * Checks if the current session is logged in.
 	 * @return bool True if the session is logged in, else false.
 	 */
-	public function is_logged_in() : bool {
+	public function isLoggedIn() : bool {
 		$b = is_numeric($_SESSION['user_id']) && $_SESSION['login'] === true
 			&& $_SESSION["ip_addr"] === $_SERVER['REMOTE_ADDR']
 			&& $_SESSION["user_agent"] == $_SERVER['HTTP_USER_AGENT']
@@ -39,10 +62,10 @@ class Login {
 	/**
 	 * Tries to login via an authentication code.
 	 */
-	private function login_auth_code() : void {
-		$b = Utilities::is_valid_auth_code($_GET['auth']) && Utilities::is_valid_id($_GET['id']);
+	private function loginAuthCode() : void {
+		$b = Utilities::isValidAuthCode($_GET['auth']) && Utilities::isValidId($_GET['id']);
 		
-		if ($b && User::validate_auth_code($_GET['id'], $_GET['auth'])) {
+		if ($b && User::validateAuthCode($_GET['id'], $_GET['auth'])) {
 			$this->login($_GET['id']);
 		} else {
 			echo "Login failed.";
@@ -52,11 +75,11 @@ class Login {
 	/**
 	 * Tries to login via username and password.
 	 */
-	private function login_password() : void {
-		$b = Utilities::is_valid_user_name($_POST['user']);
+	private function loginPassword() : void {
+		$b = Utilities::isValidUserName($_POST['user']);
 
-		if ($b && User::validate_password($_POST['user'], $_POST['pwd'])) {
-			$this->login(User::get_id_by_name($_POST['user']));
+		if ($b && User::validatePassword($_POST['user'], $_POST['pwd'])) {
+			$this->login(User::getIdByName($_POST['user']));
 		} else {
 			echo "Login failed.";
 		}
