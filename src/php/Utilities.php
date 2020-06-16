@@ -8,16 +8,16 @@ defined('BookLib') or die('Bad Request');
 class Utilities {
 	/**
 	 * Checks whether a given authentication code is valid.
-	 * @param string $auth_code The authentication code to verify.
+	 * @param string $authCode The authentication code to verify.
 	 * @return bool True if the given authentication code is valid, else false.
 	 */
-	public static function isValidAuthCode(string $auth_code) : bool {
-		return strlen($auth_code) <= 50 && preg_match('/^[a-zA-Z0-9]+$/', $auth_code) === 1;
+	public static function isValidAuthCode(string $authCode) : bool {
+		return strlen($authCode) <= 50 && preg_match('/^[a-zA-Z0-9]+$/', $authCode) === 1;
 	}
 
 	/**
 	 * Checks whether a given id is valid.
-	 * @param string $auth_code The id to verify.
+	 * @param string $id The id to verify.
 	 * @return bool True if the given id is valid, else false.
 	 */
 	public static function isValidId(string $id) : bool {

@@ -9,7 +9,7 @@ class Template {
 	/**
 	 * Holds the template which is currently in use.
 	 */
-	private string $curr_template;
+	private string $currTemplate;
 
 	/**
 	 * Holds key => value pairs for substitution (i.e., every occurrence of key should be
@@ -20,18 +20,18 @@ class Template {
 	/**
 	 * Holds the server url which is defined in the docker-compose.yml file.
 	 */
-	private string $server_url;
+	private string $serverUrl;
 
 	/**
 	 * Receives the name of a html template and displays it.
 	 * @param string $name The name of the html template to display.
 	 */
 	public function __construct(string $name) {
-		$this->curr_template = $name;
-		$this->server_url = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
+		$this->currTemplate = $name;
+		$this->serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
 		$this->replacements = array();
-		$this->replacements['%%SERVERURL%%'] = $this->server_url;
+		$this->replacements['%%SERVERURL%%'] = $this->serverUrl;
 	}
 
 	/**

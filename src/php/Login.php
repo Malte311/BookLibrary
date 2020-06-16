@@ -9,7 +9,7 @@ class Login {
 	/**
 	 * Holds the time in seconds until a user is logged out (when being inactive).
 	 */
-	private int $logout_secs = 1200;
+	private int $logoutSecs = 1200;
 
 	/**
 	 * Starts a new session or continues the current session.
@@ -29,9 +29,9 @@ class Login {
 	 * Handles incoming GET and POST requests.
 	 */
 	public function handleRequests() : void {
-		$time_out = ($_SESSION['login_time'] + $this->logout_secs) <= time();
+		$timeOut = ($_SESSION['loginTime'] + $this->logoutSecs) <= time();
 		
-		if ($_SESSION['login'] !== true || isset($_GET['logout']) || $time_out) {
+		if ($_SESSION['login'] !== true || isset($_GET['logout']) || $timeOut) {
 			if (!empty($_POST['user']) && !empty($_POST['pwd'])) {
 				$this->loginPassword();
 			} elseif (isset($_GET['id']) && !empty($_GET['auth'])) {
@@ -47,13 +47,13 @@ class Login {
 	 * @return bool True if the session is logged in, else false.
 	 */
 	public function isLoggedIn() : bool {
-		$b = is_numeric($_SESSION['user_id']) && $_SESSION['login'] === true
-			&& $_SESSION["ip_addr"] === $_SERVER['REMOTE_ADDR']
-			&& $_SESSION["user_agent"] == $_SERVER['HTTP_USER_AGENT']
-			&& ($_SESSION['login_time'] + $this->$logout_secs) > time();
+		$b = is_numeric($_SESSION['userId']) && $_SESSION['login'] === true
+			&& $_SESSION["ipAddr"] === $_SERVER['REMOTE_ADDR']
+			&& $_SESSION["userAgent"] === $_SERVER['HTTP_USER_AGENT']
+			&& ($_SESSION['loginTime'] + $this->$logoutSecs) > time();
 
 		if ($b) {
-			$_SESSION['login_time'] = time();
+			$_SESSION['loginTime'] = time();
 		}
 
 		return $b;
@@ -87,14 +87,14 @@ class Login {
 
 	/**
 	 * Logs the current session in.
-	 * @param string $user_id The id of the user who wants to log in.
+	 * @param string $userId The id of the user who wants to log in.
 	 */
-	private function login(string $user_id) : void {
+	private function login(string $userId) : void {
 		$_SESSION['login'] = true;
-		$_SESSION['user_id'] = $user_id;
-		$_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
-		$_SESSION['ip_addr'] = $_SERVER['REMOTE_ADDR'];
-		$_SESSION['login_time'] = time();
+		$_SESSION['userId'] = $userId;
+		$_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+		$_SESSION['ipAddr'] = $_SERVER['REMOTE_ADDR'];
+		$_SESSION['loginTime'] = time();
 	}
 
 	/**
