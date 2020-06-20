@@ -1,9 +1,25 @@
-<form method="post" action="%%SERVERURL%%/index.php">
-	Username:
-	<input type="text" name="user">
-	<br>
-	Password:
-	<input type="password" name="pwd">
-	<br>
-	<input type="submit">
-</form>
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Book Library</title>
+	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/bootstrap.min.css">
+</head>
+
+
+<body class="bg-light">
+	<nav class="navbar navbar-dark bg-dark justify-content-between">
+		<a class="navbar-brand text-primary">Book Library</a>
+	</nav>
+	<div>
+		<form class="form-inline" method="post" action="%%SERVERURL%%/index.php">
+			<input class="form-control mr-sm-2" type="text" placeholder="Username" name="user" autofocus>
+			<br>
+			<input class="form-control mr-sm-2" type="password" placeholder="Password" name="pwd">
+			<br>
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+		</form>
+	</div>
+</body>
+</html>

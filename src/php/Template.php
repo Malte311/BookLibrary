@@ -27,7 +27,7 @@ class Template {
 	 * @param string $name The name of the html template to display.
 	 */
 	public function __construct(string $name) {
-		$this->currTemplate = $name;
+		$this->currTemplate = file_get_contents(__DIR__ . "/../templates/{$name}.html");
 		$this->serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
 		$this->replacements = array();
@@ -35,14 +35,19 @@ class Template {
 	}
 
 	/**
+	 * Displays the currently selected html template.
+	 */
+	public function displayHtml() : void {
+		echo $this->substitute($this->currTemplate);
+	}
+
+	/**
 	 * Substitutes given strings in some html text.
 	 * @param string $html The html text in which we want to substitute specific strings.
-	 * @param array $replacements An array with key => value pairs such that every occurrence
-	 * of key is replaced by value.
 	 * @return string The html text with substituted values.
 	 */
-	private function substitute(string $html, array $replacements) : string {
-		foreach ($replacements as $key => $val) {
+	private function substitute(string $html) : string {
+		foreach ($this->replacements as $key => $val) {
 			$html = str_replace($key, $val, $html);
 		}
 

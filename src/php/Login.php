@@ -34,9 +34,9 @@ class Login {
 		if ($_SESSION['login'] !== true || isset($_GET['logout']) || $timeOut) {
 			if (!empty($_POST['user']) && !empty($_POST['pwd'])) {
 				$this->loginPassword();
-			} elseif (isset($_GET['id']) && !empty($_GET['auth'])) {
+			} else if (isset($_GET['id']) && !empty($_GET['auth'])) {
 				$this->loginAuthCode();
-			} elseif (isset($_GET['logout'])) {
+			} else if (isset($_GET['logout'])) {
 				$this->logout();
 			}
 		}
