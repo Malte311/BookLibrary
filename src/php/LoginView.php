@@ -23,7 +23,7 @@ class LoginView extends View {
 
 		if (isset($_GET['loginFailPW'])) {
 			$re = '<div class="alert alert-danger" role="alert">Invalid username or password!</div>';
-		} else if (isset($_GET['loginFailPW'])) {
+		} else if (isset($_GET['loginFailAuth'])) {
 			$re = '<div class="alert alert-danger" role="alert">Invalid authentication code!</div>';
 		}
 

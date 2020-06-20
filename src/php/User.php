@@ -9,7 +9,7 @@ class User {
 	/**
 	 * Indicates whether the setup has been done or not.
 	 */
-	private static $isSetup = false;
+	private static bool $isSetup = false;
 
 	/**
 	 * JsonReader object to deal with json files.
@@ -41,8 +41,10 @@ class User {
 	public static function getIdByName(string $user) : string {
 		self::setup();
 
-		if (isset(self::$userArray[$user])) {
-			return array_search($user, self::$userArray);
+		foreach (self::$userArray as $userId => $userName) {
+			if ($user === $userName['userName']) {
+				return $userName['userId'];
+			}
 		}
 
 		return '';
@@ -75,7 +77,7 @@ class User {
 
 		if (!empty($user) && !empty($pwd) && is_string($pwd)) {
 			foreach (self::$userArray as $userId => $userName) {
-				if ($user === $userName['user']) {
+				if ($user === $userName['userName']) {
 					if ($userName['pwd'] === hash('sha512', $pwd . $userName['salt'])) {
 						return true;
 					}
