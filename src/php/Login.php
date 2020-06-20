@@ -68,7 +68,7 @@ class Login {
 		if ($b && User::validateAuthCode($_GET['id'], $_GET['auth'])) {
 			$this->login($_GET['id']);
 		} else {
-			echo "Login failed.";
+			$_GET['loginFailAuth'] = true;
 		}
 	}
 
@@ -81,7 +81,7 @@ class Login {
 		if ($b && User::validatePassword($_POST['user'], $_POST['pwd'])) {
 			$this->login(User::getIdByName($_POST['user']));
 		} else {
-			echo "Login failed.";
+			$_GET['loginFailPW'] = true;
 		}
 	}
 

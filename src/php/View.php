@@ -9,7 +9,7 @@ class View {
 	/**
 	 * Holds the template object to manipulate html files.
 	 */
-	private Template $template;
+	protected Template $template;
 
 	/**
 	 * Initializes the template object.

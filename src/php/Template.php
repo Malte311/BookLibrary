@@ -15,7 +15,7 @@ class Template {
 	 * Holds key => value pairs for substitution (i.e., every occurrence of key should be
 	 * replaced by value).
 	 */
-	private array $replacements;
+	private array $replacements = array();
 
 	/**
 	 * Holds the server url which is defined in the docker-compose.yml file.
@@ -30,7 +30,6 @@ class Template {
 		$this->currTemplate = file_get_contents(__DIR__ . "/../templates/{$name}.html");
 		$this->serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
-		$this->replacements = array();
 		$this->replacements['%%SERVERURL%%'] = $this->serverUrl;
 	}
 
@@ -39,6 +38,15 @@ class Template {
 	 */
 	public function displayHtml() : void {
 		echo $this->substitute($this->currTemplate);
+	}
+
+	/**
+	 * Adds a new replacement to the replacements array.
+	 * @param string $key The value which should be replaced.
+	 * @param string $value The substitution for the value which should be replaced.
+	 */
+	public function addReplacement($key, $value) : void {
+		$this->replacements[$key] = $value;
 	}
 
 	/**

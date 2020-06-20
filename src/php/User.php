@@ -7,11 +7,44 @@ defined('BookLib') or die('Bad Request');
  */
 class User {
 	/**
-	 * Finds the corresponding user name to an id.
-	 * @param string $id The id for which we want to find out the user name.
-	 * @return string The corresponding user name to that id.
+	 * Indicates whether the setup has been done or not.
 	 */
-	public static function getIdByName(string $id) : string {
+	private static $isSetup = false;
+
+	/**
+	 * JsonReader object to deal with json files.
+	 */
+	private static JsonReader $jsonReader;
+
+	/**
+	 * Holds the user data.
+	 */
+	private static array $userArray = array();
+
+	/**
+	 * Initializes the JsonReader object and saves the user list.
+	 */
+	private static function setup() : void {
+		if (!self::$isSetup) {
+			self::$jsonReader = new JsonReader('user');
+			self::$userArray = self::$jsonReader->getArray();
+
+			self::$isSetup = true;
+		}
+	}
+
+	/**
+	 * Finds the corresponding user id to an user name.
+	 * @param string $user The user for which we want to find out the id.
+	 * @return string The corresponding id to that user name.
+	 */
+	public static function getIdByName(string $user) : string {
+		self::setup();
+
+		if (isset(self::$userArray[$user])) {
+			return array_search($user, self::$userArray);
+		}
+
 		return '';
 	}
 
@@ -22,6 +55,12 @@ class User {
 	 * @return bool True if the authentication code is correct, else false.
 	 */
 	public static function validateAuthCode(string $id, string $auth) : bool {
+		self::setup();
+
+		if (isset(self::$userArray[$id]) && !empty($auth)) {
+			return self::$jsonReader->searchValue([$id, 'codes'], $auth) !== false;
+		}
+
 		return false;
 	}
 
@@ -32,6 +71,20 @@ class User {
 	 * @return bool True if the password is correct, else false.
 	 */
 	public static function validatePassword(string $user, string $pwd) : bool {
+		self::setup();
+
+		if (!empty($user) && !empty($pwd) && is_string($pwd)) {
+			foreach (self::$userArray as $userId => $userName) {
+				if ($user === $userName['user']) {
+					if ($userName['pwd'] === hash('sha512', $pwd . $userName['salt'])) {
+						return true;
+					}
+				}
+			}
+
+			usleep(random_int(1000000, 2000000));
+		}
+
 		return false;
 	}
 }

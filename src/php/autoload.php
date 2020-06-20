@@ -12,4 +12,6 @@ spl_autoload_register(function($class) {
 	}
 });
 
+JsonReader::changePath(__DIR__ . '/../data/');
+
 ?>

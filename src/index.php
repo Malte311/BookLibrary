@@ -12,7 +12,6 @@ $login->handleRequests();
 
 $view;
 if ($login->isLoggedIn()) {
-	echo 'Login successful.';
 	$view = new HomeView(new Template('home'));
 } else {
 	$view = new LoginView(new Template('login'));
