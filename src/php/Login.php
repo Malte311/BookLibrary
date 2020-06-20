@@ -50,7 +50,7 @@ class Login {
 		$b = is_numeric($_SESSION['userId']) && $_SESSION['login'] === true
 			&& $_SESSION["ipAddr"] === $_SERVER['REMOTE_ADDR']
 			&& $_SESSION["userAgent"] === $_SERVER['HTTP_USER_AGENT']
-			&& ($_SESSION['loginTime'] + $this->$logoutSecs) > time();
+			&& ($_SESSION['loginTime'] + $this->logoutSecs) > time();
 
 		if ($b) {
 			$_SESSION['loginTime'] = time();

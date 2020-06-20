@@ -11,6 +11,9 @@ class View {
 	 */
 	private Template $template;
 
+	/**
+	 * Initializes the template object.
+	 */
 	public function __construct(Template $template) {
 		$this->template = $template;
 	}
