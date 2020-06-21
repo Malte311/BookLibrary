@@ -4,13 +4,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>Book Library</title>
+	<link rel="shortcut icon" href="%%SERVERURL%%/res/icon.svg">
 	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/bootstrap.min.css">
 </head>
 
 
 <body class="bg-light">
 	<nav class="navbar navbar-dark bg-dark justify-content-between">
-		<a class="navbar-brand text-white">Book Library</a>
+		<a class="navbar-brand text-white">
+			<img src="%%SERVERURL%%/res/icon.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+			Book Library
+		</a>
 		<div>
 			<button class="btn btn-outline-danger my-2 my-sm-0"
 					onclick="window.location.href = '%%SERVERURL%%/index.php?logout';">
