@@ -7,6 +7,11 @@ defined('BookLib') or die('Bad Request');
  */
 class Utilities {
 	/**
+	 * String containing small letters, capital letters as well as digits.
+	 */
+	const DEFAULT_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
+
+	/**
 	 * Checks whether a given authentication code is valid.
 	 * @param string $authCode The authentication code to verify.
 	 * @return bool True if the given authentication code is valid, else false.
@@ -31,6 +36,32 @@ class Utilities {
 	 */
 	public static function isValidUserName(string $user) : bool {
 		return strlen($user) <= 50 && preg_match('/^[a-zA-Z0-9]+$/', $user) === 1;
+	}
+
+	/**
+	 * Checks whether a given nonce is valid.
+	 * @param string $nonce The nonce to verify.
+	 * @return bool True if the given nonce is valid, else false.
+	 */
+	public static function isValidNonce(string $nonce) : bool {
+		return strlen($nonce) <= 50 && preg_match('/^[a-zA-Z0-9]+$/', $nonce) === 1;
+	}
+
+	/**
+	 * Generates a random string for a given length and a given alphabet.
+	 * @param int $length The length for the random string.
+	 * @param string $alphabet A list of allowed characters to choose from as a string.
+	 * @return string The generated random string.
+	 */
+	public static function randomString(int $length, string $alphabet) : string {
+		$randomString = '';
+
+		$alphabetLength = strlen($alphabet);
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $alphabet[random_int(0, $alphabetLength - 1)];
+		}
+
+		return $randomString;
 	}
 }
 

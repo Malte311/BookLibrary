@@ -8,6 +8,7 @@ defined('BookLib') or die('Bad Request');
 class LoginView extends View {
 	/**
 	 * Initializes the view and displays an error message if needed.
+	 * @param Template $template Template object to manipulate html content.
 	 */
 	public function __construct(Template $template) {
 		View::__construct($template);

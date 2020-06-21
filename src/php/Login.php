@@ -32,7 +32,7 @@ class Login {
 		$timeOut = ($_SESSION['loginTime'] + $this->logoutSecs) <= time();
 		
 		if ($_SESSION['login'] !== true || isset($_GET['logout']) || $timeOut) {
-			if (!empty($_POST['user']) && !empty($_POST['pwd'])) {
+			if (!empty($_POST['user']) && !empty($_POST['pwd']) && !empty($_POST['nonce'])) {
 				$this->loginPassword();
 			} else if (isset($_GET['id']) && !empty($_GET['auth'])) {
 				$this->loginAuthCode();
@@ -76,7 +76,9 @@ class Login {
 	 * Tries to login via username and password.
 	 */
 	private function loginPassword() : void {
-		$b = Utilities::isValidUserName($_POST['user']);
+		$b = Utilities::isValidUserName($_POST['user'])
+			&& Utilities::isValidNonce($_POST['nonce'])
+			&& $_POST['nonce'] === $_SESSION['nonce'];
 
 		if ($b && User::validatePassword($_POST['user'], $_POST['pwd'])) {
 			$this->login(User::getIdByName($_POST['user']));
@@ -102,6 +104,18 @@ class Login {
 	 */
 	private function logout() : void {
 		$_SESSION['login'] = false;
+	}
+
+	/**
+	 * Generates and returns the nonce for logins.
+	 * @return string The nonce for logins.
+	 */
+	public function generateNonce() : string {
+		$nonce = Utilities::randomString(50, Utilities::DEFAULT_ALPHABET);
+
+		$_SESSION['nonce'] = $nonce;
+
+		return $nonce;
 	}
 }
 
