@@ -15,7 +15,7 @@ defined('BookLib') or die('Bad Request');
 /**
  * A JSON Reader, storage using json files, as defined in Reader.
  */
-class JSONReader extends Reader {
+class JsonReader extends Reader {
 
 	/**
 	 * Deletes a JSON file. (needs exclusive rights)
