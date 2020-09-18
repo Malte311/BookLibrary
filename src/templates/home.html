@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<title>Book Library</title>
 	<link rel="shortcut icon" href="%%SERVERURL%%/res/icon.svg">
 	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/bootstrap.min.css">
@@ -22,5 +23,37 @@
 			</button>
 		</div>
 	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<aside class="col-2 px-0 mt-3 fixed">
+				<div class="bg-dark text-white px-3">
+					<div>Categories</div>
+					<hr class="col-0 px-0 bg-white">
+					<div>
+						a
+					</div>
+				</div>
+			</aside>
+			
+			<main class="col h-100">
+				<div class="row">
+					<div class="col-12 py-4">
+						<form class="form-inline my-2 my-lg-0">
+							<input class="form-control" type="search" placeholder="Search">
+							<button class="btn btn-outline-dark ml-0" type="submit">Search</button>
+							<select class="btn btn-outline-dark ml-3">
+								<option value="newest">Newest</option>
+								<option value="alphabetical">Alphabetical</option>
+								<option value="mostread">Most read</option>
+								<option value="bycategory">By category</option>
+							</select>
+						</form>
+						<hr class="bg-dark">
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
 </body>
 </html>

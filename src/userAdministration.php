@@ -117,7 +117,7 @@ function editUser(string $userId) : void {
 	}
 	
 	if (readline('Create new authentication code? (y/n)') === 'y') {
-		$newAuthCode = Utilities::randomString(75, Utilities::DEFAULT_ALPHABET);
+		$newAuthCode = Utilities::randomString(50, Utilities::DEFAULT_ALPHABET);
 		$updatedCodes = array_merge($jsonReader->getValue([$userId, 'codes']), array($newAuthCode));
 
 		$jsonReader->setValue([$userId, 'codes'], $updatedCodes);
