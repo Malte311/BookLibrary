@@ -54,7 +54,7 @@ function addUser() : void {
 	$userData['userId'] = createId();
 
 	$jsonReader->setValue([null], $userData);
-	echo "Created user {$userData['userName']} successfully.";
+	echo "Created user {$userData['userName']} successfully." . PHP_EOL;
 }
 
 /**
@@ -98,19 +98,32 @@ function createId() : int {
 }
 
 /**
- * Changes the password of a user, given by id.
- * @param string $userId The id of the user for whom the password should be changed.
+ * Allows to change the password of a user or to create an authentication code for a user,
+ * given by id.
+ * @param string $userId The id of the user who should be edited.
  */
 function editUser(string $userId) : void {
 	global $jsonReader;
 
-	$newSalt = Utilities::randomString(50, Utilities::DEFAULT_ALPHABET);
-	$newPwd = readPwd($newSalt);
+	if (readline('Change password? (y/n)') === 'y') {
+		$newSalt = Utilities::randomString(50, Utilities::DEFAULT_ALPHABET);
+		$newPwd = readPwd($newSalt);
+	
+		if (readline("Really change the password for user with id {$userId}? (y/n)") === 'y') {
+			$jsonReader->setValue([$userId, 'pwd'], $newPwd);
+			$jsonReader->setValue([$userId, 'salt'], $newSalt);
+			echo 'Changed password successfully.' . PHP_EOL;
+		}
+	}
+	
+	if (readline('Create new authentication code? (y/n)') === 'y') {
+		$newAuthCode = Utilities::randomString(75, Utilities::DEFAULT_ALPHABET);
+		$updatedCodes = array_merge($jsonReader->getValue([$userId, 'codes']), array($newAuthCode));
 
-	if (readline("Really change the password for user with id {$userId}? (y/n)") === 'y') {
-		$jsonReader->setValue([$userId, 'pwd'], $newPwd);
-		$jsonReader->setValue([$userId, 'salt'], $newSalt);
-		echo 'Changed password successfully.';
+		$jsonReader->setValue([$userId, 'codes'], $updatedCodes);
+		$serverUrl = (!empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000');
+		echo "Created new authentication code for user with id {$userId}:" . PHP_EOL;
+		echo "{$serverUrl}?id={$userId}&auth={$newAuthCode}" . PHP_EOL;
 	}
 }
 
@@ -123,7 +136,7 @@ function deleteUser(string $userId) : void {
 
 	if ($jsonReader->isValue([$userId]) && readline('ID ' . $userId . ' löschen? (y/n)') === 'y') {
 		$jsonReader->setValue([$userId], null);
-		echo "Deleted user with id {$userId} successfully.";
+		echo "Deleted user with id {$userId} successfully." . PHP_EOL;
 	}
 }
 
