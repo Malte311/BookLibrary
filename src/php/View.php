@@ -13,6 +13,7 @@ class View {
 
 	/**
 	 * Initializes the template object.
+	 * @param Template $template The template object to manipulate html content.
 	 */
 	public function __construct(Template $template) {
 		$this->template = $template;
