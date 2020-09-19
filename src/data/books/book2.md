@@ -1,6 +1,6 @@
 # PROGRAMMIEREN LERNEN MIT JAVA - MALTE LUTTERMANN
 
-> 15.10.2018, Summary
+> 15.10.2018, Summary  
 > 12.12.2018, Paperback
 
 ## Insights
