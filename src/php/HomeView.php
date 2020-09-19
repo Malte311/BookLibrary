@@ -7,26 +7,53 @@ defined('BookLib') or die('Bad Request');
  */
 class HomeView extends View {
 	/**
+	 * BookManager object to fetch statistics and books.
+	 */
+	private BookManager $bookManager;
+
+	/**
 	 * Initializes the template object.
 	 * @param Template $template The template object to manipulate html content.
 	 */
 	public function __construct(Template $template) {
 		View::__construct($template);
 
+		$this->bookManager = new BookManager();
+
 		$this->loadStatistics();
+		$this->loadBooks();
 	}
 
 	/**
 	 * Fetches statistics and adds them to the html template.
 	 */
 	private function loadStatistics() : void {
-		$bookStats = new BookStats();
-		
 		$statsArray = array('TOTALREAD', 'AVERAGEREAD', 'LASTYEARREAD');
 		foreach ($statsArray as $val) {
-			$stats = $bookStats->getStats($val);
+			$stats = $this->bookManager->getStats($val);
 			$this->template->addReplacement("%%{$val}%%", empty($stats) ? 0 : $stats);
 		}
+	}
+
+	/**
+	 * Fetches books for the current selection and adds them to the html template.
+	 */
+	private function loadBooks() : void {
+		$bookData = $this->bookManager->getBookData();
+		$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
+
+		$dataString = '';
+		foreach ($bookData as $book => $data) {
+			$dataString .=
+				"<div class=\"card\" style=\"width: 240px\">
+					<img src=\"{$serverUrl}/data/covers/{$book}.jpg\" class=\"card-img-top\">
+					<div class=\"card-body\">
+						<p class=\"card-text text-center h6\">{$data}</p>
+					</div>
+				</div>";
+		}
+
+		$this->template->addReplacement('%%BOOKOVERVIEW%%', $dataString);						
 	}
 }
 

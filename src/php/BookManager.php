@@ -5,7 +5,7 @@ defined('BookLib') or die('Bad Request');
 /**
  * Handles book statistics.
  */
-class BookStats {
+class BookManager {
 	/**
 	 * JsonReader object to deal with json files.
 	 */
@@ -27,6 +27,17 @@ class BookStats {
 		$value = $this->jsonReader->getValue([$key]);
 
 		return isset($value) ? $value : '';
+	}
+
+	/**
+	 * Returns available book data.
+	 */
+	public function getBookData() : array {
+		return array(
+			"book1" => "C# lernen",
+			"book2" => "Programmieren lernen mit Java",
+			"book3" => "Programmierung sicherer Systeme mit Rust",
+		);
 	}
 }
 
