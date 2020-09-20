@@ -20,6 +20,9 @@ class HomeView extends View {
 
 		$this->bookManager = new BookManager();
 
+		$searchVal = isset($_GET['SEARCHVAL']) ? $_GET['SEARCHVAL'] : '';
+		$this->template->addReplacement("%%SEARCHVAL%%", $searchVal);
+
 		$this->loadStatistics();
 		$this->loadTypes();
 		$this->loadCategories();

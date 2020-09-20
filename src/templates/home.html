@@ -47,14 +47,15 @@
 			<main class="col h-100">
 				<div class="row">
 					<div class="col-12 py-4">
-						<form class="form-inline my-2 my-lg-0">
-							<input class="form-control" type="search" placeholder="Search">
+						<form class="form-inline my-2 my-lg-0" method="get">
+							<input class="form-control" type="search" value="%%SEARCHVAL%%"
+									placeholder="Search" name="SEARCHVAL">
 							<button class="btn btn-outline-dark ml-0" type="submit">Search</button>
-							<select class="form-control ml-3">
+							<select id="sort" class="form-control ml-3" name="SORTVAL"
+									onchange="this.form.submit();">
 								<option value="newest">Newest</option>
 								<option value="alphabetical">Alphabetical</option>
 								<option value="mostread">Most read</option>
-								<option value="bycategory">By category</option>
 							</select>
 						</form>
 						<hr class="bg-dark">
