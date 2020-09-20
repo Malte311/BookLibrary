@@ -66,19 +66,17 @@ class HomeView extends View {
 	 */
 	private function loadBooks() : void {
 		$bookData = $this->bookManager->getBookData();
-		$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
-		$bookTemplate = new Template('book');
-		$dataString = '';
-		foreach ($bookData as $book => $data) {
-			$bookTemplate->addReplacement('%%SERVERURL%%', $serverUrl)
-				->addReplacement('%%FILENAME%%', $book)
-				->addReplacement('%%BOOKTITLE%%', $data);
-			
-			$dataString .= $bookTemplate->getHtml();
-		}
+		$bookData = array_map(function($key, $val) {
+			$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
-		$this->template->addReplacement('%%BOOKOVERVIEW%%', $dataString);
+			return (new Template('book'))->addReplacement('%%SERVERURL%%', $serverUrl)
+				->addReplacement('%%FILENAME%%', str_replace('.md', '', $key))
+				->addReplacement('%%BOOKTITLE%%', $val['title'])
+				->getHtml();
+		}, array_keys($bookData), $bookData);
+
+		$this->template->addReplacement('%%BOOKOVERVIEW%%', implode('', $bookData));
 	}
 }
 

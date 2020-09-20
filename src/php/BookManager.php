@@ -51,12 +51,10 @@ class BookManager {
 	 * Returns available book note data.
 	 * @return array The available book note data.
 	 */
-	public function getBookData() : array {		
-		return array(
-			"book1" => "C# lernen",
-			"book2" => "Programmieren lernen mit Java",
-			"book3" => "Programmierung sicherer Systeme mit Rust",
-		);
+	public function getBookData() : array {
+		return array_filter($this->jsonReader->getArray(), function($e) {
+			return strpos($e, '.md') !== false;
+		}, ARRAY_FILTER_USE_KEY);
 	}
 }
 
