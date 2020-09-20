@@ -9,9 +9,13 @@ require_once(__DIR__ . '/php/autoload.php');
 $login = new Login();
 
 if ($login->isLoggedIn()) {
-	
+	switch ($_GET['task']) {
+		default:
+			echo json_encode(array('error' => 'Invalid request'));
+			break;
+	}
 } else {
-	echo "Authentication required!";
+	echo json_encode(array('error' => 'Authentication required'));
 }
 
 ?>
