@@ -15,11 +15,6 @@ class BookParser {
 	 * Holds the information for the available books.
 	 */
 	private array $bookData;
-
-	/**
-	 * Holds statistical information about the available books.
-	 */
-	private array $bookStatistics;
 	
 	/**
 	 * Initializes the json reader object.
@@ -28,10 +23,8 @@ class BookParser {
 		$this->jsonReader = new JsonReader('bookData');
 		
 		$this->bookData = array();
-		
-		$this->bookStatistics = array();
 		foreach (Utilities::STATISTICS as $stat) {
-			$this->bookStatistics[$stat] = 0;
+			$this->bookData[$stat] = 0;
 		}
 	}
 
@@ -49,6 +42,7 @@ class BookParser {
 			}
 		}
 
+		$this->updateStatistics();
 		$this->jsonReader->setArray($this->bookData);
 	}
 
@@ -134,6 +128,28 @@ class BookParser {
 		}
 
 		return trim(substr($fileContent, strpos($fileContent, '---') + strlen('---')));
+	}
+
+	/**
+	 * Updates the statistical values (e.g. total number of books read).
+	 */
+	private function updateStatistics() : void {
+		$allDates = array();
+
+		foreach ($this->bookData as $key => $val) {
+			if (preg_match('/.*.md/', $key)) {
+				$this->bookData['TOTALREAD'] += count($val['dates']);
+				
+				$this->bookData['LASTYEARREAD'] += count(array_filter($val['dates'], function($d) {
+					return time() - 60 * 60 * 24 * 365 <= $d; // year in seconds
+				}));
+
+				$allDates = array_merge($allDates, $val['dates']);
+			}
+		}
+
+		$totalMonths = (time() - min($allDates)) / 60 / 60 / 24 / 30;
+		$this->bookData['AVERAGEREAD'] = round($this->bookData['TOTALREAD'] / $totalMonths, 2);
 	}
 }
 

@@ -12,6 +12,10 @@ $login->handleRequests();
 
 $view;
 if ($login->isLoggedIn()) {
+	if (isset($_GET['refreshDB'])) {
+		(new BookParser())->scanDirectory();
+	}
+
 	$view = new HomeView(new Template('home'));
 } else {
 	$template = new Template('login');

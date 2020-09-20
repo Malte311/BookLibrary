@@ -2,6 +2,8 @@
 
 define('BookLib', 'ok');
 
+error_reporting(!empty($_ENV['PROD']) && $_ENV['PROD'] == 'prod' ? 0 : E_ALL);
+
 require_once(__DIR__ . '/php/autoload.php');
 
 $jsonReader = new JSONReader('user');
