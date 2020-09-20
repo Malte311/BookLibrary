@@ -15,13 +15,24 @@ class BookParser {
 	 * Holds the information for the available books.
 	 */
 	private array $bookData;
+
+	/**
+	 * Holds statistical information about the available books.
+	 */
+	private array $bookStatistics;
 	
 	/**
 	 * Initializes the json reader object.
 	 */
 	public function __construct() {
 		$this->jsonReader = new JsonReader('bookData');
+		
 		$this->bookData = array();
+		
+		$this->bookStatistics = array();
+		foreach (Utilities::STATISTICS as $stat) {
+			$this->bookStatistics[$stat] = 0;
+		}
 	}
 
 	/**
@@ -33,17 +44,12 @@ class BookParser {
 		foreach (scandir($dir) as $index => $file) {
 			$filename = "{$dir}/{$file}";
 
-			if (is_file($filename) && $this->isMarkdownFile($filename)) {
-				$this->parseFile($filename);
-				// $this->jsonReader->setValue([null], $this->bookData[$file]);
+			if (Utilities::isMarkdownFile($filename)) {
+				$this->parseFile($filename); // Saves information to $this->bookData
 			}
 		}
 
-		// foreach ($this->bookData as $file => $data) {
-		// 	$data['file'] = $file;
-		// }
-
-		$this->jsonReader->setArray(array($this->bookData));
+		$this->jsonReader->setArray($this->bookData);
 	}
 
 	/**
@@ -104,7 +110,17 @@ class BookParser {
 	 * @return array The corresponding categories.
 	 */
 	private function parseCategories(string $fileContent) : array {
-		return array();
+		if (strpos($fileContent, '---') === false) {
+			return array();
+		}
+
+		$replaceRegex = '/> \d\d\.\d\d\.\d\d\d\d, ([^\r\n]*)((\r?\n)|(\r\n?))/';
+		$fileContent = preg_replace($replaceRegex, '', $fileContent);
+
+		$matchRegex = '/> (.*)((\r?\n)|(\r\n?))/';
+		preg_match_all($matchRegex, substr($fileContent, 0, strpos($fileContent, '---')), $matches);
+
+		return !empty($matches) ? array_map('rtrim', $matches[1]) : array();
 	}
 
 	/**
@@ -113,16 +129,11 @@ class BookParser {
 	 * @return string The corresponding raw content (without title, dates, types, etc.).
 	 */
 	private function parseContent(string $fileContent) : string {
-		return '';
-	}
+		if (strpos($fileContent, '---') === false) {
+			return '';
+		}
 
-	/**
-	 * Checks whether a given file is a markdown file.
-	 * @param string $file The file to check.
-	 * @return bool True if the file is a markdown file, else false.
-	 */
-	private function isMarkdownFile(string $file) : bool {
-		return pathinfo($file)['extension'] === 'md';
+		return trim(substr($fileContent, strpos($fileContent, '---') + strlen('---')));
 	}
 }
 

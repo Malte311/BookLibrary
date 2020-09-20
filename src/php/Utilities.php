@@ -12,6 +12,11 @@ class Utilities {
 	const DEFAULT_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
 
 	/**
+	 * Array containing the name for all available statistics.
+	 */
+	const STATISTICS = array('TOTALREAD', 'AVERAGEREAD', 'LASTYEARREAD');
+
+	/**
 	 * Checks whether a given authentication code is valid.
 	 * @param string $authCode The authentication code to verify.
 	 * @return bool True if the given authentication code is valid, else false.
@@ -62,6 +67,15 @@ class Utilities {
 		}
 
 		return $randomString;
+	}
+
+	/**
+	 * Checks whether a given file is a markdown file.
+	 * @param string $filepath The full path to the file to check.
+	 * @return bool True if the file is a markdown file, else false.
+	 */
+	public static function isMarkdownFile(string $filepath) : bool {
+		return is_file($filepath) && pathinfo($filepath)['extension'] === 'md';
 	}
 }
 

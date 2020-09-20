@@ -28,8 +28,7 @@ class HomeView extends View {
 	 * Fetches statistics and adds them to the html template.
 	 */
 	private function loadStatistics() : void {
-		$statsArray = array('TOTALREAD', 'AVERAGEREAD', 'LASTYEARREAD');
-		foreach ($statsArray as $val) {
+		foreach (Utilities::STATISTICS as $val) {
 			$stats = $this->bookManager->getStats($val);
 			$this->template->addReplacement("%%{$val}%%", empty($stats) ? 0 : $stats);
 		}

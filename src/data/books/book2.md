@@ -4,6 +4,7 @@
 > 12.12.2018, Paperback
 
 > Computer Science - Programming - Java
+---
 
 ## Insights
 - Programming is incredibly fun.

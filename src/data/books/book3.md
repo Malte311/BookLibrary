@@ -4,6 +4,7 @@
 
 > Computer Science - Programming - Rust  
 > Computer Science - Programming - Safety Critical Systems
+---
 
 ## Insights
 - Programming is incredibly fun.
