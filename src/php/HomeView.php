@@ -42,18 +42,16 @@ class HomeView extends View {
 		$bookData = $this->bookManager->getBookData();
 		$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
+		$bookTemplate = new Template('book');
 		$dataString = '';
 		foreach ($bookData as $book => $data) {
-			$dataString .=
-				"<div class=\"card\" style=\"width: 240px\">
-					<img src=\"{$serverUrl}/data/covers/{$book}.jpg\" class=\"card-img-top\">
-					<div class=\"card-body\">
-						<p class=\"card-text text-center h6\">{$data}</p>
-					</div>
-				</div>";
+			$bookTemplate->addReplacement('%%SERVERURL%%', $serverUrl);
+			$bookTemplate->addReplacement('%%FILENAME%%', $book);
+			$bookTemplate->addReplacement('%%BOOKTITLE%%', $data);
+			$dataString .= $bookTemplate->getHtml();
 		}
 
-		$this->template->addReplacement('%%BOOKOVERVIEW%%', $dataString);						
+		$this->template->addReplacement('%%BOOKOVERVIEW%%', $dataString);
 	}
 }
 

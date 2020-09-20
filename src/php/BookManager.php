@@ -33,6 +33,10 @@ class BookManager {
 	 * Returns available book data.
 	 */
 	public function getBookData() : array {
+		// TODO! (just some testing here at the moment..)
+		$bookParser = new BookParser();
+		$bookParser->scanDirectory();
+		
 		return array(
 			"book1" => "C# lernen",
 			"book2" => "Programmieren lernen mit Java",

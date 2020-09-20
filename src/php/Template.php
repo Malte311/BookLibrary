@@ -41,6 +41,14 @@ class Template {
 	}
 
 	/**
+	 * Returns the currently selected html template (no echoing).
+	 * @return string The currently selected html template.
+	 */
+	public function getHtml() : string {
+		return $this->substitute($this->currTemplate);
+	}
+
+	/**
 	 * Adds a new replacement to the replacements array.
 	 * @param string $key The value which should be replaced.
 	 * @param string $value The substitution for the value which should be replaced.
