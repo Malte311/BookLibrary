@@ -35,9 +35,15 @@ class BookParser {
 
 			if (is_file($filename) && $this->isMarkdownFile($filename)) {
 				$this->parseFile($filename);
-				$this->jsonReader->setValue([null], $this->bookData[$file]);
+				// $this->jsonReader->setValue([null], $this->bookData[$file]);
 			}
 		}
+
+		// foreach ($this->bookData as $file => $data) {
+		// 	$data['file'] = $file;
+		// }
+
+		$this->jsonReader->setArray(array($this->bookData));
 	}
 
 	/**
@@ -62,8 +68,10 @@ class BookParser {
 	 * @param string $fileContent The content of a book note file.
 	 * @return string The corresponding book title.
 	 */
-	function parseTitle(string $fileContent) : string {
-		
+	private function parseTitle(string $fileContent) : string {
+		preg_match('/# (.*)((\r?\n)|(\r\n?))/', $fileContent, $matches);
+
+		return !empty($matches) ? preg_replace('/(\r?\n?)/', '', $matches[1]) : '';
 	}
 
 	/**
@@ -71,8 +79,10 @@ class BookParser {
 	 * @param string $fileContent The content of a book note file.
 	 * @return array The corresponding dates when the book was read.
 	 */
-	function parseDates(string $fileContent) : array {
+	private function parseDates(string $fileContent) : array {
+		preg_match_all('/> (\d\d\.\d\d\.\d\d\d\d)(.*)((\r?\n)|(\r\n?))/', $fileContent, $matches);
 		
+		return !empty($matches) ? array_map('strtotime', $matches[1]) : array();
 	}
 
 	/**
@@ -81,8 +91,11 @@ class BookParser {
 	 * @param string $fileContent The content of a book note file.
 	 * @return array The corresponding types in which form the book was read.
 	 */
-	function parseTypes(string $fileContent) : array {
-		
+	private function parseTypes(string $fileContent) : array {
+		$regex = '/> \d\d\.\d\d\.\d\d\d\d, ([^\r\n]*)((\r?\n)|(\r\n?))/';
+		preg_match_all($regex, $fileContent, $matches);
+
+		return !empty($matches) ? array_unique(array_map('rtrim', $matches[1])) : array();
 	}
 
 	/**
@@ -90,8 +103,8 @@ class BookParser {
 	 * @param string $fileContent The content of a book note file.
 	 * @return array The corresponding categories.
 	 */
-	function parseCategories(string $fileContent) : array {
-		
+	private function parseCategories(string $fileContent) : array {
+		return array();
 	}
 
 	/**
@@ -99,8 +112,8 @@ class BookParser {
 	 * @param string $fileContent The content of a book note file.
 	 * @return string The corresponding raw content (without title, dates, types, etc.).
 	 */
-	function parseContent(string $fileContent) : string {
-		
+	private function parseContent(string $fileContent) : string {
+		return '';
 	}
 
 	/**
