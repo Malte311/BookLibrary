@@ -54,7 +54,10 @@ class BookParser {
 		$fileData = array();
 		$fileContent = file_get_contents($file);
 
-		$fileData['title']      = $this->parseTitle($fileContent);
+		list($title, $author) = explode(' - ', $this->parseTitle($fileContent));
+
+		$fileData['title']      = $title;
+		$fileData['author']     = isset($author) ? $author : '';
 		$fileData['dates']      = $this->parseDates($fileContent);
 		$fileData['types']      = $this->parseTypes($fileContent);
 		$fileData['categories'] = $this->parseCategories($fileContent);

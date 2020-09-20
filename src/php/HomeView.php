@@ -20,8 +20,9 @@ class HomeView extends View {
 
 		$this->bookManager = new BookManager();
 
-		$this->loadTypes();
 		$this->loadStatistics();
+		$this->loadTypes();
+		$this->loadCategories();
 		$this->loadBooks();
 	}
 
@@ -45,6 +46,19 @@ class HomeView extends View {
 		sort($allTypes, SORT_STRING | SORT_FLAG_CASE);
 
 		$this->template->addReplacement("%%ALLTYPES%%", implode('', $allTypes));
+	}
+
+	/**
+	 * Fetches all available categories and displays them as filter options.
+	 */
+	private function loadCategories() : void {
+		$allCats = array_map(function($e) {
+			return (new Template('cats'))->addReplacement('%%CAT%%', $e)->getHtml();
+		}, $this->bookManager->getCategories());
+
+		sort($allCats, SORT_STRING | SORT_FLAG_CASE);
+
+		$this->template->addReplacement("%%ALLCATS%%", implode('', $allCats));
 	}
 
 	/**

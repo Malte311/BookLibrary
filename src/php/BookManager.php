@@ -40,6 +40,14 @@ class BookManager {
 	}
 
 	/**
+	 * Returns all categories which are currently in use.
+	 * @return array All categories which are currently in use.
+	 */
+	public function getCategories() : array {
+		return $this->jsonReader->getValue(['ALLCATS']);
+	}
+
+	/**
 	 * Returns available book note data.
 	 * @return array The available book note data.
 	 */

@@ -3,7 +3,7 @@
 > 30.03.2018, eBook  
 > 23.03.2020, eBook
 
-> Computer Science - Programming - C#
+> Programming
 ---
 
 ## Quotes
