@@ -56,6 +56,15 @@ class BookManager {
 			return strpos($e, '.md') !== false;
 		}, ARRAY_FILTER_USE_KEY);
 	}
+
+	/**
+	 * Checks whether a given book note file has a cover.
+	 * @param string $filename The name of the book note file.
+	 * @return bool True if a cover exists, else false.
+	 */
+	public function hasCover(string $filename) : bool {
+		return file_exists('./data/covers/' . str_replace('.md', '.jpg', $filename));
+	}
 }
 
 ?>

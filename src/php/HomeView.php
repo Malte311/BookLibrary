@@ -69,9 +69,10 @@ class HomeView extends View {
 
 		$bookData = array_map(function($key, $val) {
 			$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
+			$img = $this->bookManager->hasCover($key) ? str_replace('.md', '', $key) : 'alt';
 
 			return (new Template('book'))->addReplacement('%%SERVERURL%%', $serverUrl)
-				->addReplacement('%%FILENAME%%', str_replace('.md', '', $key))
+				->addReplacement('%%FILENAME%%', $img)
 				->addReplacement('%%BOOKTITLE%%', $val['title'])
 				->getHtml();
 		}, array_keys($bookData), $bookData);
