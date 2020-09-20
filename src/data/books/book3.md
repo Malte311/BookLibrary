@@ -2,6 +2,9 @@
 
 > 01.04.2020, Paperback
 
+> Computer Science - Programming - Rust
+> Computer Science - Programming - Safety Critical Systems
+
 ## Insights
 - Programming is incredibly fun.
 
