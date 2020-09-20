@@ -52,9 +52,11 @@ class Template {
 	 * Adds a new replacement to the replacements array.
 	 * @param string $key The value which should be replaced.
 	 * @param string $value The substitution for the value which should be replaced.
+	 * @return Template Returns this object for method chaining.
 	 */
-	public function addReplacement($key, $value) : void {
+	public function addReplacement($key, $value) : Template {
 		$this->replacements[$key] = $value;
+		return $this;
 	}
 
 	/**

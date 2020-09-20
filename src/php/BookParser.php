@@ -134,7 +134,7 @@ class BookParser {
 	 * Updates the statistical values (e.g. total number of books read).
 	 */
 	private function updateStatistics() : void {
-		$allDates = array();
+		$allDates = $allTypes = $allCats = array();
 
 		foreach ($this->bookData as $key => $val) {
 			if (preg_match('/.*.md/', $key)) {
@@ -145,11 +145,16 @@ class BookParser {
 				}));
 
 				$allDates = array_merge($allDates, $val['dates']);
+				$allTypes = array_unique(array_merge($allTypes, $val['types']));
+				$allCats = array_unique(array_merge($allCats, $val['categories']));
 			}
 		}
 
 		$totalMonths = (time() - min($allDates)) / 60 / 60 / 24 / 30;
 		$this->bookData['AVERAGEREAD'] = round($this->bookData['TOTALREAD'] / $totalMonths, 2);
+
+		$this->bookData['ALLTYPES'] = $allTypes;
+		$this->bookData['ALLCATS'] = $allCats;
 	}
 }
 

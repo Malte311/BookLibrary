@@ -19,8 +19,7 @@ if ($login->isLoggedIn()) {
 	$view = new HomeView(new Template('home'));
 } else {
 	$template = new Template('login');
-	$template->addReplacement('%%NONCE%%', $login->generateNonce());
-	$view = new LoginView($template);
+	$view = new LoginView($template->addReplacement('%%NONCE%%', $login->generateNonce()));
 }
 
 $view->show();

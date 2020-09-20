@@ -15,27 +15,35 @@ class BookManager {
 	 * Initializes the json reader object.
 	 */
 	public function __construct() {
-		$this->jsonReader = new JsonReader('statistics');
+		$this->jsonReader = new JsonReader('bookData');
 	}
 
 	/**
-	 * Returns the corresponding statistic for a given key.
-	 * @param string $key The key for which the statistic should be returned.
-	 * @return string The corresponding statistic to that key.
+	 * Returns the statistical information (how many books read so far, etc.).
+	 * @return array The statistical information.
 	 */
-	public function getStats(string $key) : string {
-		$value = $this->jsonReader->getValue([$key]);
+	public function getStats() : array {
+		$stats = array();
+		foreach (Utilities::STATISTICS as $key) {
+			$stats[$key] = $this->jsonReader->getValue([$key]);
+		}
 
-		return isset($value) ? $value : '';
+		return $stats;
 	}
 
 	/**
-	 * Returns available book data.
+	 * Returns all types which are currently in use.
+	 * @return array All types which are currently in use.
 	 */
-	public function getBookData() : array {
-		// TODO! (just some testing here at the moment..)
-		
-		
+	public function getTypes() : array {
+		return $this->jsonReader->getValue(['ALLTYPES']);
+	}
+
+	/**
+	 * Returns available book note data.
+	 * @return array The available book note data.
+	 */
+	public function getBookData() : array {		
 		return array(
 			"book1" => "C# lernen",
 			"book2" => "Programmieren lernen mit Java",

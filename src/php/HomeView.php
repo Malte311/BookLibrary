@@ -20,6 +20,7 @@ class HomeView extends View {
 
 		$this->bookManager = new BookManager();
 
+		$this->loadTypes();
 		$this->loadStatistics();
 		$this->loadBooks();
 	}
@@ -28,10 +29,22 @@ class HomeView extends View {
 	 * Fetches statistics and adds them to the html template.
 	 */
 	private function loadStatistics() : void {
-		foreach (Utilities::STATISTICS as $val) {
-			$stats = $this->bookManager->getStats($val);
-			$this->template->addReplacement("%%{$val}%%", empty($stats) ? 0 : $stats);
+		foreach ($this->bookManager->getStats() as $key => $value) {
+			$this->template->addReplacement("%%{$key}%%", $value);
 		}
+	}
+
+	/**
+	 * Fetches all available types and displays them as filter options.
+	 */
+	private function loadTypes() : void {
+		$allTypes = array_map(function($e) {
+			return (new Template('type'))->addReplacement('%%TYPE%%', $e)->getHtml();
+		}, $this->bookManager->getTypes());
+
+		sort($allTypes, SORT_STRING | SORT_FLAG_CASE);
+
+		$this->template->addReplacement("%%ALLTYPES%%", implode('', $allTypes));
 	}
 
 	/**
@@ -44,9 +57,10 @@ class HomeView extends View {
 		$bookTemplate = new Template('book');
 		$dataString = '';
 		foreach ($bookData as $book => $data) {
-			$bookTemplate->addReplacement('%%SERVERURL%%', $serverUrl);
-			$bookTemplate->addReplacement('%%FILENAME%%', $book);
-			$bookTemplate->addReplacement('%%BOOKTITLE%%', $data);
+			$bookTemplate->addReplacement('%%SERVERURL%%', $serverUrl)
+				->addReplacement('%%FILENAME%%', $book)
+				->addReplacement('%%BOOKTITLE%%', $data);
+			
 			$dataString .= $bookTemplate->getHtml();
 		}
 
