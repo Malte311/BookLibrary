@@ -2,6 +2,7 @@
 
 > 15.10.2018, Summary  
 > 12.12.2018, Paperback
+> 29.03.2020, Paperback
 
 > Programming
 ---

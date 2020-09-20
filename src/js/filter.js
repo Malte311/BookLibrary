@@ -17,8 +17,4 @@ window.location.search.substr(1).split("&").forEach(val => {
 	if (val.includes('SORTVAL')) {
 		$(`#sort option[value=${val.split('=')[1]}]`).prop('selected', true);
 	}
-})
-
-$('#sort').change(() => {
-	$.get(`${SERVERURL}/index.php`, {'SORTVAL': $('#sort').val()});
 });
