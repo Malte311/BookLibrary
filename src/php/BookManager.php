@@ -81,10 +81,8 @@ class BookManager {
 		}, ARRAY_FILTER_USE_KEY), function($e) use($id) {
 			return $e['id'] === $id;
 		});
-
-		$data = $data[array_key_first($data)];
 		
-		return array($data['title'] => $data);
+		return $data[array_key_first($data)];
 	}
 
 	/**

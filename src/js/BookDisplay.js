@@ -20,24 +20,24 @@ class BookDisplay {
 			'id': id
 		})));
 
-		let key = Object.keys(dataObj)[0];
 		$('#dialog').load(`${SERVERURL}/templates/noteView.html`, () => {
-			$('#noteDates').html(dataObj[key]['dates'].map(e => {
-				return BookDisplay.strDate(new Date(e * 1000));
+			$('#noteDates').html(dataObj['dates'].map(e => {
+				let date = BookDisplay.strDate(new Date(e * 1000));
+				return `<span class="badge badge-dark ml-1">${date}</span>`;
 			}).join(', '));
 
-			$('#noteTypes').html(dataObj[key]['types'].map(e => {
+			$('#noteTypes').html(dataObj['types'].map(e => {
 				return `<span class="badge badge-warning ml-1">${e}</span>`;
 			}).join(', '));
 
-			$('#noteCats').html(dataObj[key]['categories'].map(e => {
+			$('#noteCats').html(dataObj['categories'].map(e => {
 				return `<span class="badge badge-warning ml-1">${e}</span>`;
 			}).join(', '));
 
-			$('#noteContent').html(BookDisplay.converter.makeHtml(dataObj[key]['content']));
+			$('#noteContent').html(BookDisplay.converter.makeHtml(dataObj['content']));
 		});
 		
-		BookDisplay.createDialog(`${dataObj[key]['title']} -- ${dataObj[key]['author']}`);
+		BookDisplay.createDialog(`${dataObj['title']} -- ${dataObj['author']}`);
 	}
 
 	/**
