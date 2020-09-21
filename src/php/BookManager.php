@@ -49,18 +49,27 @@ class BookManager {
 
 	/**
 	 * Returns available book note data.
+	 * @param array $filters Filters to filter the data (e.g. display only ebooks).
 	 * @return array The available book note data.
 	 */
-	public function getBookData() : array {
+	public function getBookData(array $filters = array()) : array {
 		$data = $this->filterBookData(array_filter($this->jsonReader->getArray(), function($e) {
 			return strpos($e, '.md') !== false;
-		}, ARRAY_FILTER_USE_KEY));
+		}, ARRAY_FILTER_USE_KEY), $filters);
 
 		if (isset($_GET['SORTVAL']) && !empty($_GET['SORTVAL'])) {
 			return $this->sortBookData($data, $_GET['SORTVAL']);
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Returns the number of book note files.
+	 * @return int The number of book note files.
+	 */
+	public function getBookCount() : int {
+		return $this->jsonReader->getValue(['NUMBOOKS']);
 	}
 
 	/**
@@ -75,15 +84,30 @@ class BookManager {
 	/**
 	 * Filters the data if filters are set (e.g. display only eBooks or only a specific category).
 	 * @param array $data The data to be filtered.
+	 * @param array $filters Filters to be applied to the data (e.g. {'types': ['ebook']} to display
+	 * only ebooks).
 	 * @return array The filtered data.
 	 */
-	private function filterBookData(array $data) : array {
+	private function filterBookData(array $data, array $filters) : array {
 		if (isset($_GET['SEARCHVAL']) && !empty($_GET['SEARCHVAL'])) {
 			$data = array_filter($data, function($e) {
 				return stripos($e['title'], $_GET['SEARCHVAL']) !== false
 					|| stripos($e['author'], $_GET['SEARCHVAL']) !== false
 					|| stripos($e['content'], $_GET['SEARCHVAL']) !== false;
 			});
+		}
+
+		foreach (array('categories', 'types') as $index) {
+			if (isset($filters[$index]) && is_array($filters[$index])) {
+				$data = array_filter($data, function($e) use($index, $filters) {
+					foreach ($filters[$index] as $type) {
+						if (in_array($type, $e[$index])) {
+							return true;
+						}
+					}
+					return false;
+				});
+			}
 		}
 
 		return $data;

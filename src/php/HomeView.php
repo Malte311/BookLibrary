@@ -71,12 +71,13 @@ class HomeView extends View {
 	 */
 	private function loadBooks() : void {
 		$bookData = $this->bookManager->getBookData();
+		$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
 
-		$bookData = array_map(function($key, $val) {
-			$serverUrl = !empty($_ENV['SERVERURL']) ? $_ENV['SERVERURL'] : 'http://localhost:8000';
+		$bookData = array_map(function($key, $val) use($serverUrl) {
 			$img = $this->bookManager->hasCover($key) ? str_replace('.md', '', $key) : 'alt';
 
-			return (new Template('book'))->addReplacement('%%SERVERURL%%', $serverUrl)
+			return (new Template('book'))->addReplacement('%%BOOKID%%', $val['id'])
+				->addReplacement('%%SERVERURL%%', $serverUrl)
 				->addReplacement('%%FILENAME%%', htmlentities($img, ENT_QUOTES))
 				->addReplacement('%%BOOKTITLE%%', htmlentities($val['title'], ENT_QUOTES))
 				->getHtml();

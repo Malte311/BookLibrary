@@ -10,6 +10,15 @@ $login = new Login();
 
 if ($login->isLoggedIn()) {
 	switch ($_GET['task']) {
+		case 'filter':
+			$isValidData = isset($_GET['filters']) && is_array($_GET['filters']);
+			echo json_encode($isValidData ? array_map(function($e) {
+				return $e['id'];
+			}, (new BookManager())->getBookData($_GET['filters'])) : array());
+			break;
+		case 'numBooks':
+			echo json_encode((new BookManager())->getBookCount());
+			break;
 		default:
 			echo json_encode(array('error' => 'Invalid request'));
 			break;

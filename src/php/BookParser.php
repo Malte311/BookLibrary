@@ -15,6 +15,11 @@ class BookParser {
 	 * Holds the information for the available books.
 	 */
 	private array $bookData;
+
+	/**
+	 * Holds the current id to assign a unique id to every book.
+	 */
+	private int $bookId = 0;
 	
 	/**
 	 * Initializes the json reader object.
@@ -56,6 +61,7 @@ class BookParser {
 
 		list($title, $author) = explode(' - ', $this->parseTitle($fileContent));
 
+		$fileData['id']         = $this->bookId++;
 		$fileData['title']      = $title;
 		$fileData['author']     = isset($author) ? $author : '';
 		$fileData['dates']      = $this->parseDates($fileContent);
@@ -158,6 +164,8 @@ class BookParser {
 
 		$this->bookData['ALLTYPES'] = $allTypes;
 		$this->bookData['ALLCATS'] = $allCats;
+
+		$this->bookData['NUMBOOKS'] = $this->bookId;
 	}
 }
 
