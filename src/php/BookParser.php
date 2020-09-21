@@ -146,7 +146,7 @@ class BookParser {
 		$allDates = $allTypes = $allCats = array();
 
 		foreach ($this->bookData as $key => $val) {
-			if (preg_match('/.*.md/', $key)) {
+			if (preg_match('/.*.md/', $key) === 1) {
 				$this->bookData['TOTALREAD'] += count($val['dates']);
 				
 				$this->bookData['LASTYEARREAD'] += count(array_filter($val['dates'], function($d) {

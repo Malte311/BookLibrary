@@ -73,20 +73,18 @@ class BookManager {
 	/**
 	 * Returns the content of a given book note.
 	 * @param int $id The id of the book note for which the content should be returned.
-	 * @return string The content of that book note.
+	 * @return array The title and the content of that book note.
 	 */
-	public function getBookContent(int $id) : string {
-		// $data = array_filter(array_filter($this->jsonReader->getArray(), function($e) {
-		// 	return strpos($e, '.md') !== false;
-		// }, ARRAY_FILTER_USE_KEY), function($e) use($id) {
-		// 	return $e['id'] === $id;
-		// });
+	public function getBookContent(int $id) : array {
+		$data = array_filter(array_filter($this->jsonReader->getArray(), function($e) {
+			return strpos($e, '.md') !== false;
+		}, ARRAY_FILTER_USE_KEY), function($e) use($id) {
+			return $e['id'] === $id;
+		});
 
-		// return $data;
-
-		// return array($data['title'] => $data['content']);
-
-		return $this->jsonReader->getValue([$id, 'content']);
+		$data = $data[array_key_first($data)];
+		
+		return array($data['title'] => $data['content']);
 	}
 
 	/**
