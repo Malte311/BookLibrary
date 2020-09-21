@@ -34,7 +34,7 @@ class HomeView extends View {
 	 */
 	private function loadStatistics() : void {
 		foreach ($this->bookManager->getStats() as $key => $value) {
-			$this->template->addReplacement("%%{$key}%%", $value);
+			$this->template->addReplacement("%%{$key}%%", htmlentities($value, ENT_QUOTES));
 		}
 	}
 
@@ -43,7 +43,8 @@ class HomeView extends View {
 	 */
 	private function loadTypes() : void {
 		$allTypes = array_map(function($e) {
-			return (new Template('type'))->addReplacement('%%TYPE%%', $e)->getHtml();
+			return (new Template('type'))
+				->addReplacement('%%TYPE%%', htmlentities($e, ENT_QUOTES))->getHtml();
 		}, $this->bookManager->getTypes());
 
 		sort($allTypes, SORT_STRING | SORT_FLAG_CASE);
@@ -56,7 +57,8 @@ class HomeView extends View {
 	 */
 	private function loadCategories() : void {
 		$allCats = array_map(function($e) {
-			return (new Template('cats'))->addReplacement('%%CAT%%', $e)->getHtml();
+			return (new Template('cats'))
+				->addReplacement('%%CAT%%', htmlentities($e, ENT_QUOTES))->getHtml();
 		}, $this->bookManager->getCategories());
 
 		sort($allCats, SORT_STRING | SORT_FLAG_CASE);
@@ -75,8 +77,8 @@ class HomeView extends View {
 			$img = $this->bookManager->hasCover($key) ? str_replace('.md', '', $key) : 'alt';
 
 			return (new Template('book'))->addReplacement('%%SERVERURL%%', $serverUrl)
-				->addReplacement('%%FILENAME%%', $img)
-				->addReplacement('%%BOOKTITLE%%', $val['title'])
+				->addReplacement('%%FILENAME%%', htmlentities($img, ENT_QUOTES))
+				->addReplacement('%%BOOKTITLE%%', htmlentities($val['title'], ENT_QUOTES))
 				->getHtml();
 		}, array_keys($bookData), $bookData);
 
