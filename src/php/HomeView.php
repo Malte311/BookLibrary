@@ -72,11 +72,16 @@ class HomeView extends View {
 
 		$bookData = array_map(function($key, $val) use($serverUrl) {
 			$img = $this->bookManager->hasCover($key) ? str_replace('.md', '', $key) : 'alt';
+			$lastDate = date('d.m.y', max($val['dates']));
 
 			return (new Template('book'))->addReplacement('%%BOOKID%%', $val['id'])
 				->addReplacement('%%SERVERURL%%', $serverUrl)
 				->addReplacement('%%FILENAME%%', htmlentities($img, ENT_QUOTES))
 				->addReplacement('%%BOOKTITLE%%', htmlentities($val['title'], ENT_QUOTES))
+				->addReplacement('%%CATS%%', implode('', array_map(function($e) {
+					return (new Template('badge'))->addReplacement('%%B%%', $e)->getHtml();
+				}, $val['categories'])))
+				->addReplacement('%%LASTREAD%%', htmlentities($lastDate, ENT_QUOTES))
 				->getHtml();
 		}, array_keys($bookData), $bookData);
 

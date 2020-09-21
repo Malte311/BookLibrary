@@ -84,7 +84,7 @@ class BookManager {
 
 		$data = $data[array_key_first($data)];
 		
-		return array($data['title'] => $data['content']);
+		return array($data['title'] => $data);
 	}
 
 	/**
