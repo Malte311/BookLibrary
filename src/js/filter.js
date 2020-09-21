@@ -34,45 +34,40 @@ class Filter {
 		let array = type === Filter.filterCats ? Filter.selectedCats : Filter.selectedTypes;
 
 		if (array.includes(value)) {
-			$(`#${value}`).addClass('badge-light').removeClass('badge-warning');
+			$(`[id='${value}']`).addClass('badge-light').removeClass('badge-warning');
 			array.splice(array.indexOf(value), 1);
 		} else {
-			$(`#${value}`).addClass('badge-warning').removeClass('badge-light');
+			$(`[id='${value}']`).addClass('badge-warning').removeClass('badge-light');
 			array.push(value);
 		}
 	
-		Filter.applyFilter({[type]: array});
+		Filter.applyFilter();
 	}
 
 	/**
 	 * Fetches the valid book note ids from the server and displays only those, i.e.,
 	 * all other entries are filtered out.
-	 * @param {object} filter Object specifying what to filter for, e.g.
-	 * {'types': ['ebook']} for displaying only ebooks or
-	 * {'categories': ['programming', 'web']} for displaying books belonging to one
-	 * (or more) of the given categories.
 	 */
-	static async applyFilter(filter) {
+	static async applyFilter() {
 		let numBooks = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
 			'task': 'numBooks'
 		}));
 		numBooks = Number.isNaN(parseInt(numBooks)) ? 0 : parseInt(numBooks);
-	
-		let data;
-		if (filter[Object.keys(filter)[0]].length) {
-			data = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
-				'task': 'filter', 'filters': filter
-			}));
-			data = Object.entries(JSON.parse(data)).map(e => e[1]);
-		} else {
-			data = Array.from(Array(numBooks).keys());
-		}
+		
+		let data = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
+			'task': 'filter', 'filters': {
+				[Filter.filterCats]: Filter.selectedCats,
+				[Filter.filterType]: Filter.selectedTypes
+			}
+		}));
+		console.log(data)
+		data = Object.entries(JSON.parse(data)).map(e => e[1]);
 	
 		for (let id = 0; id < numBooks; id++) {
 			if (data.includes(id)) {
-				$(`#${id}`).show();
+				$(`[id='${id}']`).show();
 			} else {
-				$(`#${id}`).hide();
+				$(`[id='${id}']`).hide();
 			}
 		}
 	}

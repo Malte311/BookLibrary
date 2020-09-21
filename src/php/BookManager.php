@@ -101,11 +101,11 @@ class BookManager {
 			if (isset($filters[$index]) && is_array($filters[$index])) {
 				$data = array_filter($data, function($e) use($index, $filters) {
 					foreach ($filters[$index] as $type) {
-						if (in_array($type, $e[$index])) {
-							return true;
+						if (!in_array($type, $e[$index])) {
+							return false;
 						}
 					}
-					return false;
+					return true;
 				});
 			}
 		}

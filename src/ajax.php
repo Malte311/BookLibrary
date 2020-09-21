@@ -12,9 +12,9 @@ if ($login->isLoggedIn()) {
 	switch ($_GET['task']) {
 		case 'filter':
 			$isValidData = isset($_GET['filters']) && is_array($_GET['filters']);
-			echo json_encode($isValidData ? array_map(function($e) {
+			echo json_encode(array_map(function($e) {
 				return $e['id'];
-			}, (new BookManager())->getBookData($_GET['filters'])) : array());
+			}, (new BookManager())->getBookData($isValidData ? $_GET['filters'] : array())));
 			break;
 		case 'numBooks':
 			echo json_encode((new BookManager())->getBookCount());

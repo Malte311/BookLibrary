@@ -65,11 +65,11 @@ class Template {
 	 * @return string The html text with substituted values.
 	 */
 	private function substitute(string $html) : string {
-		foreach ($this->replacements as $key => $val) {
-			$html = str_replace($key, $val, $html);
-		}
-
-		return $html;
+		return str_replace(
+			array_keys($this->replacements),
+			array_values($this->replacements),
+			$html
+		);
 	}
 }
 
