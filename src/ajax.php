@@ -10,6 +10,10 @@ $login = new Login();
 
 if ($login->isLoggedIn()) {
 	switch ($_GET['task']) {
+		case 'bookContent':
+			$bookId = (isset($_GET['id']) && is_numeric($_GET['id'])) ? $_GET['id'] : -1;
+			echo json_encode((new BookManager())->getBookContent(intval($bookId)));
+			break;
 		case 'filter':
 			$isValidData = isset($_GET['filters']) && is_array($_GET['filters']);
 			echo json_encode(array_map(function($e) {

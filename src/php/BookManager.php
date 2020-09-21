@@ -57,11 +57,9 @@ class BookManager {
 			return strpos($e, '.md') !== false;
 		}, ARRAY_FILTER_USE_KEY), $filters);
 
-		if (isset($_GET['SORTVAL']) && !empty($_GET['SORTVAL'])) {
-			return $this->sortBookData($data, $_GET['SORTVAL']);
-		}
+		$sort = (isset($_GET['SORTVAL']) && !empty($_GET['SORTVAL'])) ? $_GET['SORTVAL'] : 'newest';
 
-		return $data;
+		return $this->sortBookData($data, $sort);
 	}
 
 	/**
@@ -70,6 +68,25 @@ class BookManager {
 	 */
 	public function getBookCount() : int {
 		return $this->jsonReader->getValue(['NUMBOOKS']);
+	}
+
+	/**
+	 * Returns the content of a given book note.
+	 * @param int $id The id of the book note for which the content should be returned.
+	 * @return string The content of that book note.
+	 */
+	public function getBookContent(int $id) : string {
+		// $data = array_filter(array_filter($this->jsonReader->getArray(), function($e) {
+		// 	return strpos($e, '.md') !== false;
+		// }, ARRAY_FILTER_USE_KEY), function($e) use($id) {
+		// 	return $e['id'] === $id;
+		// });
+
+		// return $data;
+
+		// return array($data['title'] => $data['content']);
+
+		return $this->jsonReader->getValue([$id, 'content']);
 	}
 
 	/**

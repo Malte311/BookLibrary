@@ -7,6 +7,7 @@
 	<title>Book Library</title>
 	<link rel="shortcut icon" href="%%SERVERURL%%/res/icon.svg">
 	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/jquery-ui.min.css">
 	<style>
 		.card-book:hover {
 			transform: scale(1.05);
@@ -30,6 +31,8 @@
 			</button>
 		</div>
 	</nav>
+	
+	<div id="dialog"></div>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -120,8 +123,11 @@
 		const SERVERURL = '%%SERVERURL%%';
 	</script>
 
-	<script language="javascript" src="%%SERVERURL%%/lib/jquery.js"></script>
+	<script language="javascript" src="%%SERVERURL%%/lib/jquery.min.js"></script>
+	<script language="javascript" src="%%SERVERURL%%/lib/jquery-ui.min.js"></script>
+	<script language="javascript" src="%%SERVERURL%%/lib/showdown.min.js"></script>
 	<script language="javascript" src="%%SERVERURL%%/js/state.js"></script>
 	<script language="javascript" src="%%SERVERURL%%/js/Filter.js"></script>
+	<script language="javascript" src="%%SERVERURL%%/js/BookDisplay.js"></script>
 </body>
 </html>
