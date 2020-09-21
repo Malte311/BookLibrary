@@ -22,27 +22,36 @@ window.location.search.substr(1).split("&").forEach(val => {
 });
 
 async function applyFilter(filter) {
-	// let data = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
-	// 	'task': 'filter', 'filters': filter
-	// }));
+	let numBooks = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
+		'task': 'numBooks'
+	}));
 
-	// let numBooks = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
-	// 	'task': 'numBooks'
-	// }));
+	numBooks = Number.isNaN(parseInt(numBooks)) ? 0 : parseInt(numBooks);
 
-	// for (let id = 0; id < numBooks; id++) {
-	// 	if (data.includes(id)) {
-	// 		$(`#${id}`).show();
-	// 	} else {
-	// 		$(`#${id}`).hide();
-	// 	}
-	// }
-	// console.log(numBooks)
-	// console.log(data)
+	let data;
+
+	if (filter['types'].length) {
+		data = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
+			'task': 'filter', 'filters': filter
+		}));
 	
-	// console.log(Object.entries(JSON.parse(data)).map(e => e[1]));
+		data = Object.entries(JSON.parse(data)).map(e => e[1]);
+	} else {
+		data = Array.from(Array(numBooks).keys());
+	}
 
-	// for (const [key, value] of Object.entries(JSON.parse(data))) {
-	// 	console.log(value);
-	// }
+	for (let id = 0; id < parseInt(numBooks); id++) {
+		if (data.includes(id)) {
+			$(`#${id}`).show();
+		} else {
+			$(`#${id}`).hide();
+		}
+	}
 }
+
+// class Filter {
+// 	constructor() {
+// 		this.FILTER_TYPE = 'types';
+// 		this.FILTER_CATS = 'categories';
+// 	}
+// }
