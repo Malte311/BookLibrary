@@ -54,7 +54,7 @@
 				<div class="row">
 					<div class="col-12 py-4">
 						<form class="form-inline my-2 my-lg-0" method="get">
-							<input class="form-control" type="search" value="%%SEARCHVAL%%"
+							<input id="search" class="form-control" type="search"
 									placeholder="Search" name="SEARCHVAL">
 							<button class="btn btn-outline-dark ml-0" type="submit">Search</button>
 							<select id="sort" class="form-control ml-3" name="SORTVAL"
@@ -94,7 +94,18 @@
 							</form>
 						</div>
 						<div>
-							<h4><span class="badge badge-dark">All</span></h4>
+							<div class="container row justify-content-left align-self-left">
+								<h6><span class="mr-3">Selected types</span></h6>
+								<div id="typesBadges">
+									<span class="badge badge-dark">All</span>
+								</div>
+							</div>
+							<div class="container row justify-content-left align-self-left">
+								<h6><span class="mr-3">Selected categories</span></h6>
+								<div id="categoriesBadges">
+									<span class="badge badge-dark">All</span>
+								</div>
+							</div>
 						</div>
 						<div class="col-12 container row justify-content-center align-self-center">
 							%%BOOKOVERVIEW%%
@@ -111,6 +122,6 @@
 
 	<script language="javascript" src="%%SERVERURL%%/lib/jquery.js"></script>
 	<script language="javascript" src="%%SERVERURL%%/js/state.js"></script>
-	<script language="javascript" src="%%SERVERURL%%/js/filter.js"></script>
+	<script language="javascript" src="%%SERVERURL%%/js/Filter.js"></script>
 </body>
 </html>

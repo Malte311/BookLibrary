@@ -60,7 +60,7 @@ class Filter {
 				[Filter.filterType]: Filter.selectedTypes
 			}
 		}));
-		console.log(data)
+
 		data = Object.entries(JSON.parse(data)).map(e => e[1]);
 	
 		for (let id = 0; id < numBooks; id++) {
@@ -68,6 +68,27 @@ class Filter {
 				$(`[id='${id}']`).show();
 			} else {
 				$(`[id='${id}']`).hide();
+			}
+		}
+
+		Filter.displayBadges();
+	}
+
+	/**
+	 * Displays badges for the currently selected types and categories.
+	 */
+	static displayBadges() {
+		for (let filter of [Filter.filterCats, Filter.filterType]) {
+			let array = filter === Filter.filterCats ? Filter.selectedCats : Filter.selectedTypes;
+
+			if (!(array.length > 0)) {
+				$(`#${filter}Badges`).html('<span class="badge badge-dark">All</span>');
+			} else {
+				$(`#${filter}Badges`).html('');
+				array.forEach(val => {
+					let str = `<span class="badge badge-warning mr-2">${val}</span>`;
+					$(`#${filter}Badges`).append(str);
+				});
 			}
 		}
 	}
