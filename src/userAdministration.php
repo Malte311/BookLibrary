@@ -73,9 +73,9 @@ function readPwd(string $salt) : string {
 
 	system('stty -echo');
 	do {
-		echo 'New password: ';
+		echo 'New password: ' . PHP_EOL;
 		$pwd = rtrim(fgets(STDIN), PHP_EOL);
-		echo 'Password (again): ';
+		echo 'Password (again): ' . PHP_EOL;
 		$pwdAgain = rtrim(fgets(STDIN), PHP_EOL);
 
 		if ($pwd !== $pwdAgain) {
