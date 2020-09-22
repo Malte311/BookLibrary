@@ -10,7 +10,7 @@
 
 ## :whale: Installation (in three simple steps via Docker)
 
-1. Download this repository:
+1. Download this repository (or only the `docker-compose.yml` file):
 
 ```bash
 
