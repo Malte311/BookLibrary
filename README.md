@@ -10,7 +10,7 @@
 
 ## :whale: Installation (in three simple steps via Docker)
 
-1. Download this repository (or only the `docker-compose.yml` file):
+1. Download the `docker-compose.yml` file _or_ clone the whole repository:
 
 ```bash
 
@@ -26,7 +26,7 @@ version: "2"
 
 services:
   web:
-    image: malte311/book-library:latest
+    image: quay.io/malte311/book-library:latest
     container_name: book-library
     ports:
       - "127.0.0.1:8080:80"
@@ -51,7 +51,11 @@ docker-compose up -d
 ```
 
 ## :book: Usage
-> Todo.
+After the installation, run `php userAdministration.php add` on the command line in order to create an initial user. Afterwards, you can log into the application using the credentials you just created. This script allows you to _delete_, _edit_ or _list_ all available users as well. Simply replace the parameter `add` with `delete`, `edit` or `list`, respectively.
+
+While logged in, you can view, filter and sort all book note files which are present in the `data/` directory. In order to get rid of the example files from this repository, simple delete them in the `data/` folder. For adding new book notes, place their corresponding markdown files in the `data/books/` folder (and optionally the book cover in the `data/covers/` folder). A detailed guide on how to manage the book note files can be found [here](https://github.com/Malte311/BookLibrary/blob/master/src/data/README.md).
+
+The content of each book note file can be viewed by clicking on the corresponding card in the overview. When viewing the statistics, keep in mind that each book can be read multiple times, i.e., the numbers do not represent unique books read.
 
 ## :page_facing_up: License
 
