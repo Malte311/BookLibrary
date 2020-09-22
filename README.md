@@ -1,5 +1,6 @@
 # :books: BookLibrary
 
+![Build Status](https://travis-ci.com/Malte311/BookLibrary.svg?branch=master)
 [![GitHub license](https://img.shields.io/github/license/Malte311/BookLibrary)](https://github.com/Malte311/BookLibrary/blob/master/LICENSE)
 
 > _BookLibrary_ is a library for book notes.
