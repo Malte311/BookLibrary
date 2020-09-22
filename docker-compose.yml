@@ -10,4 +10,7 @@ services:
       - ./data/:/php-code/data/
     restart: always
     environment:
+      - BASEURL=https://example.com
       - SERVERURL=https://example.com/book-library
+      - IMPRESSUMURL=https://example.com/impressum
+      - DATENSCHUTZURL=https://example.com/datenschutz
