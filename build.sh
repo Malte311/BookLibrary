@@ -10,7 +10,7 @@ cat VERSION | while read TAG; do
 		echo "Skipping $TAG";
 	else 
 		echo "Tagging Image as $TAG and pushing";
-		docker tag $IMAGE_NAME "malte311/$IMAGE_NAME:$TAG"
+		docker tag $IMAGE_NAME "quay.io/malte311/$IMAGE_NAME:$TAG"
       	docker push "quay.io/malte311/$IMAGE_NAME:$TAG"
 	fi
 done
