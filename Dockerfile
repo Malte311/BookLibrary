@@ -13,6 +13,10 @@ RUN echo $' \n\
 		deny all; \n\
 		return 403; \n\
 	} \n\
+	# allow accesses to covers subfolder
+	location /data/covers {
+		try_files $uri $uri/ =404;
+	}
 	' > /etc/nginx/more-server-conf.conf
 
 COPY --chown=www-data:www-data ./src/ /php-code/
