@@ -6,8 +6,6 @@
 > _BookLibrary_ is a library for book notes.
 > In fact, _BookNoteLibrary_ would be a more appropriate name since the idea is to manage book notes -- not whole books.
 
-:warning: This application is still work in progress (the Docker setup is not finished yet)!
-
 ## :whale: Installation (in three simple steps via Docker)
 
 1. Download the `docker-compose.yml` file _or_ clone the whole repository:
