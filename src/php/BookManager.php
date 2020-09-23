@@ -36,7 +36,8 @@ class BookManager {
 	 * @return array All types which are currently in use.
 	 */
 	public function getTypes() : array {
-		return $this->jsonReader->getValue(['ALLTYPES']);
+		$types = $this->jsonReader->getValue(['ALLTYPES']);
+		return is_array($types) ? $types : array();
 	}
 
 	/**
@@ -44,7 +45,8 @@ class BookManager {
 	 * @return array All categories which are currently in use.
 	 */
 	public function getCategories() : array {
-		return $this->jsonReader->getValue(['ALLCATS']);
+		$cats = $this->jsonReader->getValue(['ALLCATS']);
+		return is_array($cats) ? $cats : array();
 	}
 
 	/**
