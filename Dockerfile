@@ -15,6 +15,7 @@ RUN echo $' \n\
 	} \n\
 	# allow accesses to covers subfolder \n\
 	location /data/covers/ { \n\
+		allow all; \n\
 		try_files $uri $uri/ =404; \n\
 	} \n\
 	' > /etc/nginx/more-server-conf.conf
