@@ -9,14 +9,9 @@ RUN echo $' \n\
         deny all; \n\
         return 403; \n\
     } \n\
-	location ~ ^/(data|php){ \n\
+	location ~ ^/(data(?!/covers)|php){ \n\
 		deny all; \n\
 		return 403; \n\
-	} \n\
-	# allow accesses to covers subfolder \n\
-	location /data/covers/ { \n\
-		allow all; \n\
-		try_files $uri $uri/ =404; \n\
 	} \n\
 	' > /etc/nginx/more-server-conf.conf
 
