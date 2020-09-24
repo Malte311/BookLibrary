@@ -47,7 +47,6 @@ class BookDisplay {
 	static createDialog(title) {
 		$('#dialog').dialog({
 			close: function() {
-				$('body').css({overflow: 'inherit'});
 				$('#main, nav').css({'opacity': 1});
 			},
 			closeOnEscape: true,
@@ -60,7 +59,6 @@ class BookDisplay {
 			title: title
 		});
 
-		$('body').css({overflow: 'hidden'});
 		$('#main, nav').css({'opacity': 0.2});
 	}
 
