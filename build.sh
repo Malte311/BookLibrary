@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Docker build
 IMAGE_NAME='book-library'
 
 echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin quay.io
@@ -14,3 +16,8 @@ cat VERSION | while read TAG; do
       	docker push "quay.io/malte311/$IMAGE_NAME:$TAG"
 	fi
 done
+
+# PHPDoc
+curl -L http://phpdoc.org/phpDocumentor.phar --output ./phpdoc.phar
+
+php ./phpdoc.phar -d ./src -t ./docs

@@ -9,11 +9,6 @@ addons:
 
 services:
   - docker
-    
-before_script:
-  - curl -L http://phpdoc.org/phpDocumentor.phar --output ./phpdoc.phar
-
-script: php ./phpdoc.phar -d ./src -t ./docs
 
 deploy:
 - provider: pages
