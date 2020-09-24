@@ -85,7 +85,8 @@ class HomeView extends View {
 				->getHtml();
 		}, array_keys($bookData), $bookData);
 
-		$this->template->addReplacement('%%BOOKOVERVIEW%%', implode('', $bookData));
+		$this->template->addReplacement('%%BOOKOVERVIEW%%', implode('', $bookData))
+			->addReplacement('%%NUMRESULTS%%', count($bookData));
 	}
 }
 

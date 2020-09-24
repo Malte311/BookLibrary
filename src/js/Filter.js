@@ -62,6 +62,8 @@ class Filter {
 		}));
 
 		data = Object.entries(JSON.parse(data)).map(e => e[1]);
+
+		$('#numResults').html(`Displaying ${data.length} results`);
 	
 		for (let id = 0; id < numBooks; id++) {
 			if (data.includes(id)) {
