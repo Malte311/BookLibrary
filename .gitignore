@@ -2,3 +2,6 @@
 
 *.json
 *.json.lock
+
+phpdoc.phar
+docs/
