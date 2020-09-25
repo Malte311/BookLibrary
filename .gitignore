@@ -3,5 +3,7 @@
 *.json
 *.json.lock
 
+.phpdoc
 phpdoc.phar
+phpDocumentator.phar
 docs/

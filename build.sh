@@ -18,7 +18,5 @@ cat VERSION | while read TAG; do
 done
 
 # PHPDoc
-docker pull phpdoc/phpdoc
-docker run --rm -v $(pwd):/data phpdoc/phpdoc -d ./src -t ./docs
-chmod 777 ./docs
-rm -r ./docs/phpdoc-cache-*
+curl -L https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar --output phpDocumentator.phar
+php phpDocumentator.phar --ignore src/php/Reader.php --ignore src/php/JsonReader.php -d ./src -t ./docs --template="clean"
