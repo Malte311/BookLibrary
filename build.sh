@@ -20,4 +20,5 @@ done
 # PHPDoc
 docker pull phpdoc/phpdoc
 docker run --rm -v $(pwd):/data phpdoc/phpdoc -d ./src -t ./docs
+chmod 777 ./docs
 rm -r ./docs/phpdoc-cache-*

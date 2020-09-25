@@ -37,7 +37,7 @@ The top part of the file is the important one - everything below `---` is render
 
 The first line contains a `#` heading including title and author of the book, separated by ` - ` (with spaces before and after that character).
 
-After an empty line, there are arbitrary many lines containing dates when the book was read, formatted as `> dd.dd.dddd, format` for each line. `format` gives the format in which the book was read, e.g. `eBook`, `paperback`, etc.
+After an empty line, there are arbitrary many lines containing dates when the book was read, formatted as `> dd.mm.yyyy, format` for each line. `format` gives the format in which the book was read, e.g. `eBook`, `paperback`, etc.
 
 After another empty line, there are categories for that book, written down as `> Category name` per line.
 
