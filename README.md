@@ -2,7 +2,7 @@
 
 ![Build Status](https://travis-ci.com/Malte311/BookLibrary.svg?branch=master)
 [![GitHub license](https://img.shields.io/github/license/Malte311/BookLibrary)](https://github.com/Malte311/BookLibrary/blob/master/LICENSE)
-[![Documentation](https://img.shields.io/badge/-documentation-informational)](https://malte311.github.io/BookLibrary/namespaces/default.html)
+[![Documentation](https://img.shields.io/badge/-documentation-informational)](https://malte311.github.io/BookLibrary/)
 
 > _BookLibrary_ is a library for book notes.
 > In fact, _BookNoteLibrary_ would be a more appropriate name since the idea is to manage book notes -- not whole books.
