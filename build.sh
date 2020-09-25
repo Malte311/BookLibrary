@@ -18,6 +18,5 @@ cat VERSION | while read TAG; do
 done
 
 # PHPDoc
-curl -L http://phpdoc.org/phpDocumentor.phar --output ./phpdoc.phar
-
-php ./phpdoc.phar -d ./src -t ./docs
+docker pull phpdoc/phpdoc
+docker run --rm -v $(pwd):/data phpdoc/phpdoc -d ./src -t ./docs

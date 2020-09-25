@@ -39,6 +39,10 @@ class BookParser {
 	 * @param string $dir The directory to scan.
 	 */
 	public function scanDirectory(string $dir = __DIR__ . '/../data/books') : void {
+		if (is_dir(__DIR__ . '/../data/.git')) {
+			exec("cd ./../data/ && git pull origin master");
+		}
+
 		foreach (scandir($dir) as $index => $file) {
 			$filename = "{$dir}/{$file}";
 
