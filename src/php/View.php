@@ -15,14 +15,7 @@ class View {
 	 * Initializes the template object.
 	 * @param Template $template The template object to manipulate html content.
 	 */
-	public function __construct(Template $template) {
-		$baseUrl = !empty($_ENV['BASEURL']) ? $_ENV['BASEURL'] : 'http://localhost:8000';
-		$impressum = !empty($_ENV['IMPRESSUMURL']) ? $_ENV['IMPRESSUMURL'] : '';
-		$datenschutz = !empty($_ENV['DATENSCHUTZURL']) ? $_ENV['DATENSCHUTZURL'] : '';
-
-		$template->addReplacement('%%YEAR%%', date('Y'))->addReplacement('%%BASEURL%%', $baseUrl)
-			->addReplacement('%%IMP%%', $impressum)->addReplacement('%%DS%%', $datenschutz);
-		
+	public function __construct(Template $template) {		
 		$this->template = $template;
 	}
 
