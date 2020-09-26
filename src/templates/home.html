@@ -4,16 +4,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Book Library">
 	<title>Book Library</title>
 	<link rel="shortcut icon" href="%%SERVERURL%%/res/icon.svg">
+	<link rel="apple-touch-icon" href="%%SERVERURL%%/res/icon.svg">
 	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/lib/jquery-ui.min.css">
-	<style>
-		.card-book:hover {
-			transform: scale(1.05);
-			box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="%%SERVERURL%%/res/style.css">
 
 	<script>
 		const SERVERURL = '%%SERVERURL%%';
@@ -29,7 +29,7 @@
 
 
 <body class="bg-light">
-	<nav class="navbar navbar-dark bg-dark justify-content-between">
+	<nav class="navbar navbar-dark bg-dark justify-content-between mainNavbar">
 		<a class="navbar-brand text-white">
 			<img src="%%SERVERURL%%/res/icon.svg" width="30" height="30"
 					class="d-inline-block align-top" alt="" loading="lazy">
@@ -45,9 +45,9 @@
 	
 	<div id="dialog"></div>
 
-	<div id="main" class="container-fluid">
+	<div id="main" class="container-fluid mainContent">
 		<div class="row">
-			<aside class="col-3 px-0 mt-3 fixed">
+			<aside class="col-3 px-0 mt-3 fixed mainLeftBar">
 				<div class="bg-dark text-white px-3">
 					<br>
 					<div><span class="h5">Types</span></div>
@@ -64,15 +64,15 @@
 				</div>
 			</aside>
 			
-			<main class="col h-100">
+			<main class="col h-100 mainMidColumn">
 				<div class="row">
 					<div class="col-12 py-4">
 						<form class="form-inline my-2 my-lg-0" method="get">
-							<input id="search" class="form-control" type="search"
-									placeholder="Search" name="SEARCHVAL">
-							<button class="btn btn-outline-dark ml-0" type="submit">Search</button>
-							<select id="sort" class="form-control ml-3" name="SORTVAL"
-									onchange="this.form.submit();">
+							<input id="search" class="form-control mb-2" type="search"
+									placeholder="Search" name="SEARCHVAL" style="max-width: 65%;">
+							<button class="btn btn-outline-dark ml-0 mb-2" type="submit">Search</button>
+							<select id="sort" class="form-control ml-3 mb-2" name="SORTVAL"
+									onchange="this.form.submit();" style="max-width: 65%;">
 								<option value="newest">Newest</option>
 								<option value="alphabetical">Alphabetical</option>
 								<option value="mostread">Most read</option>
@@ -80,19 +80,19 @@
 						</form>
 						<hr class="bg-dark">
 						<div class="col-12 container row justify-content-center align-self-center">
-							<div class="card" style="width: 16rem;">
+							<div class="card mb-2" style="width: 16rem;">
 								<div class="card-body">
 									<p class="font-weight-bold text-success display-2">%%TOTALREAD%%</p>
 									<p class="card-text text-center h5">books read so far</p>
 								</div>
 							</div>
-							<div class="card ml-3" style="width: 16rem;">
+							<div class="card ml-3 mb-2" style="width: 16rem;">
 								<div class="card-body">
 									<p class="font-weight-bold text-primary display-2">%%AVERAGEREAD%%</p>
 									<p class="card-text text-center h5">books read per month average</p>
 								</div>
 							</div>
-							<div class="card ml-3" style="width: 16rem;">
+							<div class="card ml-3 mb-2" style="width: 16rem;">
 								<div class="card-body">
 									<p class="font-weight-bold text-info display-2">%%LASTYEARREAD%%</p>
 									<p class="card-text text-center h5">books read in the last 365 days</p>

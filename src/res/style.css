@@ -1,0 +1,23 @@
+div.mainContent, nav.mainNavbar {
+	margin: auto;
+	width: 100%;
+	min-width: 400px;
+}
+div.mainContent {
+	min-height: 300px;
+	max-width: 1600px;
+}
+aside.mainLeftBar {
+	min-width: 200px;
+}
+main.mainMidColumn {
+	min-width: 200px;
+}
+span.breakingBadge {
+	white-space: normal;
+}
+
+.card-book:hover {
+	transform: scale(1.05);
+	box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
