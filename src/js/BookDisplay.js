@@ -8,7 +8,7 @@ class BookDisplay {
 	/**
 	 * Converter for markdown files.
 	 */
-	static converter = new showdown.Converter();
+	static converter = new showdown.Converter({tables: true});
 
 	/**
 	 * Displays the content of a given book note.
