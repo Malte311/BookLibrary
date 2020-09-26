@@ -1,5 +1,6 @@
 div.mainContent, nav.mainNavbar {
 	margin: auto;
+	margin-left: 0;
 	width: 100%;
 	min-width: 400px;
 }
