@@ -54,11 +54,15 @@ class Filter {
 		}));
 		numBooks = Number.isNaN(parseInt(numBooks)) ? 0 : parseInt(numBooks);
 		
+		let searchVal = (new URLSearchParams(window.location.search)).get('SEARCHVAL');
+
 		let data = await Promise.resolve($.get(`${SERVERURL}/ajax.php`, {
-			'task': 'filter', 'filters': {
+			'task': 'filter',
+			'filters': {
 				[Filter.filterCats]: Filter.selectedCats,
 				[Filter.filterType]: Filter.selectedTypes
-			}
+			},
+			'SEARCHVAL': searchVal !== null && searchVal !== undefined ? searchVal : ''
 		}));
 
 		data = Object.entries(JSON.parse(data)).map(e => e[1]);

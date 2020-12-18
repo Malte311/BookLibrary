@@ -159,8 +159,7 @@ class BookParser {
 			}
 		}
 
-		$totalMonths = (time() - min($allDates)) / 60 / 60 / 24 / 30;
-		$this->bookData['AVERAGEREAD'] = round($this->bookData['TOTALREAD'] / $totalMonths, 2);
+		$this->bookData['AVERAGEREAD'] = round($this->bookData['LASTYEARREAD'] / 12, 2);
 
 		$this->bookData['ALLTYPES'] = $allTypes;
 		$this->bookData['ALLCATS'] = $allCats;
