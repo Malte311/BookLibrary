@@ -17,7 +17,7 @@ git clone git@github.com:Malte311/BookLibrary.git
 
 ```
 
-2. Adjust the `docker-compose.yml` file. Specify the correct urls and adjust the port.
+2. Adjust the `docker-compose.yml` file. Specify the correct url and adjust the port.
 
 ```yaml
 
@@ -49,10 +49,10 @@ docker-compose up -d
 ## :book: Usage
 After the installation, run `php userAdministration.php add` on the command line in order to create an initial user. Afterwards, you can log into the application using the credentials you just created. This script allows you to _delete_, _edit_ or _list_ all available users as well. Simply replace the parameter `add` with `delete`, `edit` or `list`, respectively.
 
-While logged in, you can view, filter and sort all book note files which are present in the `data/` directory. In order to get rid of the example files from this repository, simple delete them in the `data/` folder. For adding new book notes, place their corresponding markdown files in the `data/books/` folder (and optionally the book cover in the `data/covers/` folder). A detailed guide on how to manage the book note files can be found [here](https://github.com/Malte311/BookLibrary/blob/master/src/data/README.md).
+While logged in, you can view, filter and sort all book note files which are present in the `data/` directory. In order to get rid of the example files from this repository, simply delete them in the `data/` folder. For adding new book notes, place their corresponding markdown files in the `data/books/` folder (and optionally the book cover in the `data/covers/` folder). A detailed guide on how to manage the book note files can be found [here](https://github.com/Malte311/BookLibrary/blob/master/src/data/README.md).
 
-The content of each book note file can be viewed by clicking on the corresponding card in the overview. When viewing the statistics, keep in mind that each book can be read multiple times, i.e., the numbers do not represent unique books read.
+The content of each book note file can be viewed by clicking on the corresponding card in the overview.
 
 ## :page_facing_up: License
 
-This project is licensed under the [MIT License](https://github.com/Malte311/BookLibrary/blob/master/LICENSE).
+This project is licensed under the terms of the [MIT License](https://github.com/Malte311/BookLibrary/blob/master/LICENSE).
